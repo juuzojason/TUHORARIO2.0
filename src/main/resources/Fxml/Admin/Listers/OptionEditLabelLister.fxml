@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="20.0" prefWidth="80.0" spacing="5.0" style="-fx-background-color: #404040; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Controllers.Admin.OptionEditLabelListerController">
+<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="46.0" spacing="5.0" style="-fx-background-color: #404040; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Controllers.Admin.OptionEditLabelListerController">
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
    <padding>
       <Insets left="5.0" right="5.0" />
    </padding>
-   <Label fx:id="TextLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="31.0" text="Hola" textFill="WHITE" />
+   <Label fx:id="TextLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="14.0" text="Hola" textFill="WHITE" />
    <Button fx:id="DeleteButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#deleteFromList" prefHeight="20.0" prefWidth="15.0" style="-fx-background-radius: 8; -fx-background-color: transparent;" text="x" textFill="WHITE">
       <padding>
          <Insets right="5.0" />

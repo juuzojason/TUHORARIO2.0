@@ -55,6 +55,10 @@ public class ChoiceHour {
         return (data % 4) * 15;
     }
 
+    public byte getData(){
+        return this.data;
+    }
+
 
     //TODO method set Hour
 

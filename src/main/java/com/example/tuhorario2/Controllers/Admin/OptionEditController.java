@@ -1,13 +1,16 @@
 package com.example.tuhorario2.Controllers.Admin;
 
+import com.example.tuhorario2.Models.ChoiceOption;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,15 +31,36 @@ public class OptionEditController implements Initializable {
 
     public Button CancelButton;
     public Button AcceptButton;
+    public DialogPane root;
 
+
+    private String signal;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         CloseButton.setOnAction(event -> {
-            // Handle the close button click here
+            signal = "Close";
             Stage stage = (Stage) CloseButton.getScene().getWindow();
-            stage.close(); // Close the stage
+            stage.close();
         });
+
+
+        CancelButton.setOnAction(event -> {
+            signal = "Cancel";
+            Stage stage = (Stage) CancelButton.getScene().getWindow();
+            stage.close();
+        });
+
+
+
+        AcceptButton.setOnAction(event -> {
+            signal = "Accept";
+            Stage stage = (Stage) AcceptButton.getScene().getWindow();
+            stage.close();
+        });
+
+        CancelButton.setCancelButton(true);
+
         AddDayLister();
     }
 
@@ -60,10 +84,17 @@ public class OptionEditController implements Initializable {
         }
     }
 
+    public String getSignal() {
+        return signal;
+    }
+
     public void AddLabelLister() {
         String tfText = AddLabelTextField.getText();
         if (tfText.isBlank() || tfText.isEmpty()) return;
-        if (LabelFlowPane.getChildren().size() >= MaxLabels) return;
+        if (LabelFlowPane.getChildren().size() >= MaxLabels) {
+            disableLabelButton();
+            return;
+        }
         if (tfText.length() > MaxLabelLength) return;
 
         try {
@@ -78,7 +109,7 @@ public class OptionEditController implements Initializable {
             labelController.setFatherList(LabelFlowPane);
             labelController.setText(tfText);
 
-            AddLabelTextField.setText(tfText);
+            AddLabelTextField.setText("");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -91,6 +122,24 @@ public class OptionEditController implements Initializable {
 
     public void enableAddButton(){
         this.AddDayButton.setDisable(false);
+    }
+
+
+    private void disableLabelButton(){
+        this.AddLabelButton.setDisable(true);
+    }
+
+    public void enableLabelButton(){
+        this.AddLabelButton.setDisable(false);
+    }
+
+    //TODO create this method
+    public ChoiceOption getChoiceOption() {
+        return null;
+    }
+
+    //TODO create this method
+    public void setChoiceOption(ChoiceOption op) {
     }
 
 }
