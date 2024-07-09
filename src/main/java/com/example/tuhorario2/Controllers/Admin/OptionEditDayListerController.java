@@ -66,9 +66,17 @@ public class OptionEditDayListerController implements Initializable {
         BeginHourButton.setText(ChoiceHour.toString(beginHour));
     }
 
+    public byte getBeginHour(){
+        return this.beginHour;
+    }
+
     public void setEndHour(byte endHour){
         this.endHour = endHour;
         EndHourButton.setText(ChoiceHour.toString(endHour));
+    }
+
+    public byte getEndHour(){
+        return this.endHour;
     }
 
 
@@ -88,6 +96,7 @@ public class OptionEditDayListerController implements Initializable {
         if (this.fatherList.getChildren().size() == 2) return;
         this.father.enableAddButton();
         this.fatherList.getChildren().remove(object);
+        this.father.removeDayControllerList(this);
     }
 
 

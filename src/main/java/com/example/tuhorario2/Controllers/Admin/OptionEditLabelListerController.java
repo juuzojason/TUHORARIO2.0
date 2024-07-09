@@ -66,8 +66,12 @@ public class OptionEditLabelListerController implements Initializable {
     public void deleteFromList(){
         this.father.enableLabelButton();
         this.fatherList.getChildren().remove(object);
+        this.father.removeLabelControllerList(this);
     }
 
+    public String getText(){
+        return this.TextLabel.getText();
+    }
 
 
 }
