@@ -61,7 +61,22 @@ public class ChoiceHour {
 
 
     //TODO method set Hour
+    public void setHour(int hour){
+        if (hour > 21) hour =21;
+        if (hour < 6) hour = 6;
+
+        byte minute = (byte) (data % 4);
+        data = (byte) ((hour << 2 ) + minute);
+    }
 
     //TODO method set Minute
+    public void setMinute(int minute) {
+        if (minute > 45) minute = 45;
+        if (minute < 0) minute = 0;
+        minute = (minute / 15);
+
+        int hour = (data >> 2);
+        data = (byte) ((hour << 2) + minute);
+    }
 
 }
