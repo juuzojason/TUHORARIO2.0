@@ -1,6 +1,7 @@
 package com.example.tuhorario2.Controllers.Admin;
 
 import com.example.tuhorario2.Models.ChoiceOption;
+import com.example.tuhorario2.Models.ObjectEditor;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,13 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import org.controlsfx.control.spreadsheet.SpreadsheetCellEditor;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class OptionEditController implements Initializable {
+public class OptionEditController implements Initializable, ObjectEditor<ChoiceOption> {
 
     public static final int MaxLabels = 6;
     public static final int MaxLabelLength = 15;
@@ -234,4 +236,14 @@ public class OptionEditController implements Initializable {
 
     }
 
+    @Override
+    public ChoiceOption getObject() {
+        return getChoiceOption();
+    }
+
+    //TODO complete this method so it verifies if the option is valid
+    @Override
+    public boolean IsEverythingValid() {
+        return false;
+    }
 }

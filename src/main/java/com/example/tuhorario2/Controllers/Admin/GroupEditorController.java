@@ -13,7 +13,7 @@ public class GroupEditorController implements Initializable {
     public Button CancelButton;
     public Button AcceptButton;
     public TextField NameTextField;
-    public Spinner SemesterSpinner;
+    public Spinner<Integer> SemesterSpinner;
 
     //TODO FXML
 
