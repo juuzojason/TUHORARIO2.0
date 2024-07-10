@@ -60,13 +60,70 @@ public class ChoiceOption {
     //TODO method crosses with choiceOption
     //Do: when a day and a begin-end hour crosses or matches with any of this's
     //Returns: true or false, matches or not
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
+        ChoiceOption that = (ChoiceOption) obj;
+
+        return dayList.equals(that.dayList) && hourList.equals(that.hourList);
+    }
+
+
+    public boolean crossesWith(ChoiceOption other) {
+        for (int i = 0; i < this.dayList.size(); i++) {
+            byte thisDay = this.dayList.get(i);
+            Pair<Byte, Byte> thisHourPair = this.hourList.get(i);
+            for (int j = 0; j < other.dayList.size(); j++) {
+                byte otherDay = other.dayList.get(j);
+                Pair<Byte, Byte> otherHourPair = other.hourList.get(j);
+                if (thisDay == otherDay) {
+                    byte thisBegin = thisHourPair.getKey();
+                    byte thisEnd = thisHourPair.getValue();
+                    byte otherBegin = otherHourPair.getKey();
+                    byte otherEnd = otherHourPair.getValue();
+                    if ((thisBegin < otherEnd && thisEnd > otherBegin) ||
+                            (otherBegin < thisEnd && otherEnd > thisBegin)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
 
     //TODO Encript method
+    public String encript() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < dayList.size(); i++) {
+            sb.append(dayList.get(i)).append(",").append(hourList.get(i).getKey())
+                    .append(",").append(hourList.get(i).getValue()).append(";");
+        }
+        return sb.toString();
+    }
+
+
 
     //TODO List of dayOptions in a string kind of a toString
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Labels: ").append(labelList.toString()).append("\n");
+        sb.append("Days and Hours:\n");
+        for (int i = 0; i < dayList.size(); i++) {
+            sb.append("Day: ").append(dayList.get(i)).append(", Begin: ")
+                    .append(hourList.get(i).getKey()).append(", End: ")
+                    .append(hourList.get(i).getValue()).append("\n");
+        }
+        return sb.toString();
+    }
+
+
 
     //TODO hasLabel tells you if this has a label
-
+    public boolean hasLabel(String label) {
+        return labelList.contains(label);
+    }
 }
