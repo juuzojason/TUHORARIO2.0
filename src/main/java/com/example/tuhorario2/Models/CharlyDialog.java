@@ -8,8 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,9 +18,10 @@ import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.TimerTask;
 
 
-public class CharlyDialog implements Initializable{
+public class CharlyDialog extends DialogPane implements Initializable{
 
 
     public DialogPane Dialog;
@@ -60,6 +62,7 @@ public class CharlyDialog implements Initializable{
         });
 
         CancelButton.setCancelButton(true);
+
     }
 
     //TODO fix this
@@ -68,13 +71,20 @@ public class CharlyDialog implements Initializable{
     }
 
     public void addContent(VBox con){
-        con.setMinHeight(380);
-        con.setMinWidth(620);
+        HBox u = (HBox) TitleBar.getChildren().get(0);
+        u.setPrefWidth(con.getPrefWidth()-80);
+
+
+        Dialog.setMinWidth(con.getPrefWidth()+20);
+        Dialog.setMinHeight(con.getPrefHeight()+20+ TitleBar.getPrefHeight()+40);
+
+        ContentContainer.setPrefWidth(con.getPrefWidth()+20);
+        ContentContainer.setPrefHeight(con.getPrefHeight()+60);
+        System.out.println(ContentContainer.getWidth() + " " + ContentContainer.getHeight());
+
+
         ContentContainer.getChildren().add(0, con);
-        ContentContainer.setMinHeight(360);
-        Dialog.setPrefWidth(con.getWidth()+20);
-        Dialog.setPrefHeight(100+ con.getHeight());
-        //TitleBar.setPrefWidth(con.getWidth()+20);
+
     }
 
     public String getSignal() {

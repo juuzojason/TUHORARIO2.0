@@ -50,8 +50,11 @@ public class HourEditorController implements Initializable, ObjectEditor<ChoiceH
         return this.content;
     }
 
+
+    //TODO handle none object
     @Override
     public void setObject(ChoiceHour object) {
+        if (object == null) return;
         setHour(object.getData());
     }
 

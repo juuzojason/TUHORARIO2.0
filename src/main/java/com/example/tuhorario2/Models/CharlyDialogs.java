@@ -15,18 +15,17 @@ public class CharlyDialogs {
 
     public ChoiceHour HourPane(ChoiceHour hour){
         try {
-
-
-            //add content to basicDialog
-            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/Fxml/Admin/Editors/HourEditor.fxml"));
-            HourEditorController hed = fxmlLoader2.getController();
-            VBox vb = fxmlLoader2.load();
-            hed.setObject(hour);
-
             //load basicDialog
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/Admin/Editors/BasicDialog.fxml"));
             DialogPane cd = fxmlLoader.load();
             CharlyDialog con = fxmlLoader.getController();
+
+            //add content to basicDialog
+            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("/Fxml/Admin/Editors/HourEditor.fxml"));
+            VBox vb = fxmlLoader2.load();
+            HourEditorController hed = fxmlLoader2.getController();
+            hed.setObject(hour);
+
             con.addContent(vb);
 
             // Create the dialog
@@ -58,7 +57,6 @@ public class CharlyDialogs {
             OptionEditController hed = fxmlLoader2.getController();
             hed.setObject(op);
 
-
             con.addContent(vb);
 
             // Create the dialog
@@ -77,5 +75,6 @@ public class CharlyDialogs {
         return null;
     }
 
+    
 
 }
