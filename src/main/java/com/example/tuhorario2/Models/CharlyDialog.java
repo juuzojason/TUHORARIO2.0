@@ -23,6 +23,8 @@ import java.util.TimerTask;
 
 public class CharlyDialog extends DialogPane implements Initializable{
 
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public DialogPane Dialog;
     public HBox TitleBar;
@@ -59,6 +61,16 @@ public class CharlyDialog extends DialogPane implements Initializable{
             signal = "Accept";
             Stage stage = (Stage) AcceptButton.getScene().getWindow();
             stage.close();
+        });
+
+        setOnMousePressed(event -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        TitleBar.setOnMouseDragged(event -> {
+            Dialog.setLayoutX(event.getScreenX() - xOffset);
+            Dialog.setLayoutX(event.getScreenY() - yOffset);
         });
 
         CancelButton.setCancelButton(true);

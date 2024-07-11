@@ -3,6 +3,7 @@ package com.example.tuhorario2;
 import com.example.tuhorario2.Controllers.Admin.OptionEditController;
 import com.example.tuhorario2.Models.CharlyDialogs;
 import com.example.tuhorario2.Models.ChoiceOption;
+import com.example.tuhorario2.Models.Group;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +29,7 @@ public class AppTest extends Application {
     public void start(Stage stage) throws Exception {
 
         // Show the dialog and wait
-        ChoiceOption op = new CharlyDialogs().OptionPane(null);
+        Group op = new CharlyDialogs().GroupPane(null);
 
     }
 }
