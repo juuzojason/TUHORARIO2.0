@@ -2,6 +2,7 @@ package com.example.tuhorario2.Models;
 
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.List;
 
 public class Group {
 
@@ -34,5 +35,50 @@ public class Group {
     public void addOption(ChoiceOption e){
         this.options.add(e);
     }
+
+    public void removeOption(ChoiceOption e) {
+        this.options.remove(e);
+    }
+
+    // Optional: If you want to remove an option by index
+    public void removeOption(int index) {
+        if (index >= 0 && index < options.size()) {
+            options.remove(index);
+        }
+    }
+
+    // Optional: If you want to find an option by its properties before removing
+    public boolean removeOption(String label) {
+        for (ChoiceOption option : options) {
+            if (option.hasLabel(label)) {
+                return options.remove(option);
+            }
+        }
+        return false;
+    }
+
+    // Finds all options that have a specific day in their dayList ;)
+    public List<ChoiceOption> findOptionsByDay(byte day) {
+        List<ChoiceOption> result = new ArrayList<>();
+        for (ChoiceOption option : options) {
+            if (option.getDayList().contains(day)) {
+                result.add(option);
+            }
+        }
+        return result;
+    }
+
+    // Finds all options that have a specific label in their labelList :D
+    public List<ChoiceOption> findOptionsByLabel(String label) {
+        List<ChoiceOption> result = new ArrayList<>();
+        for (ChoiceOption option : options) {
+            if (option.hasLabel(label)) {
+                result.add(option);
+            }
+        }
+        return result;
+    }
+
+
 
 }

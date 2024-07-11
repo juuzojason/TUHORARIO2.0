@@ -9,6 +9,10 @@ public class ChoiceOption {
     public static byte NormalDay = 0;
     public static byte NormalBeginHour = 0;
     public static byte NormalEndHour = 10;
+
+
+    private boolean active;
+
     //List of labels
     private ArrayList<String> labelList;
     //List of Days
@@ -21,6 +25,12 @@ public class ChoiceOption {
         labelList = new ArrayList<>();
         dayList = new ArrayList<>();
         hourList = new ArrayList<>();
+        active = true;
+
+    }
+
+    public boolean isActive(){
+        return active;
     }
 
     public ArrayList<String> getLabelList() {
@@ -34,6 +44,12 @@ public class ChoiceOption {
     public ArrayList<Pair<Byte, Byte>> getHourList() {
         return hourList;
     }
+
+    public void setActive(boolean active){
+        this.active = active;
+
+    }
+
 
     //TODO method equals
     //returns: true or false, does not compare labels
@@ -94,6 +110,7 @@ public class ChoiceOption {
     }
 
 
+
     //TODO Encript method
     public String encript() {
         StringBuilder sb = new StringBuilder();
@@ -117,6 +134,7 @@ public class ChoiceOption {
                     .append(hourList.get(i).getKey()).append(", End: ")
                     .append(hourList.get(i).getValue()).append("\n");
         }
+        sb.append("Active: ").append(active).append("\n");
         return sb.toString();
     }
 
@@ -126,4 +144,5 @@ public class ChoiceOption {
     public boolean hasLabel(String label) {
         return labelList.contains(label);
     }
+
 }
