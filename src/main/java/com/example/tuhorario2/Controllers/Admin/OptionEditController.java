@@ -26,7 +26,8 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
     public static final int MaxLabels = 6;
     public static final int MaxLabelLength = 15;
 
-    public Button CloseButton;
+    public VBox content;
+
     public TextField AddLabelTextField;
     public Button AddLabelButton;
     public FlowPane LabelFlowPane;
@@ -35,40 +36,11 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
     public VBox DayVBox;
     public ArrayList<OptionEditDayListerController> DayControllerList;
 
-    public Button CancelButton;
-    public Button AcceptButton;
-    public DialogPane root;
-
-
-    private String signal;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LabelControllerList = new ArrayList<>();
         DayControllerList = new ArrayList<>();
-
-        CloseButton.setOnAction(event -> {
-            signal = "Close";
-            Stage stage = (Stage) CloseButton.getScene().getWindow();
-            stage.close();
-        });
-
-
-        CancelButton.setOnAction(event -> {
-            signal = "Cancel";
-            Stage stage = (Stage) CancelButton.getScene().getWindow();
-            stage.close();
-        });
-
-
-
-        AcceptButton.setOnAction(event -> {
-            signal = "Accept";
-            Stage stage = (Stage) AcceptButton.getScene().getWindow();
-            stage.close();
-        });
-
-        CancelButton.setCancelButton(true);
 
         AddDayLister();
     }
@@ -117,10 +89,6 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         }
     }
 
-
-    public String getSignal() {
-        return signal;
-    }
 
     public void AddLabelLister() {
         String tfText = AddLabelTextField.getText();
@@ -219,8 +187,16 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         return newer;
     }
 
-    //TODO create this method
-    public void setChoiceOption(ChoiceOption op) {
+    @Override
+    public VBox getContent() {
+        return this.content;
+    }
+
+    //TODO create another case when op is null
+    @Override
+    public void setObject(ChoiceOption op) {
+        if (op == null) return;
+
         ArrayList<String> lblList = op.getLabelList();
         for (String u : lblList){
             this.AddLabelLister(u);
@@ -235,6 +211,7 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         }
 
     }
+
 
     @Override
     public ChoiceOption getObject() {
