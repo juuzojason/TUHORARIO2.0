@@ -9,8 +9,6 @@ public class ChoiceDay {
 
     public static final Map<String, String[]> days = Map.of("Eng", new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"});
 
-
-
     public static String[] getWeekDays(){
         return days.get("Eng");
     }
