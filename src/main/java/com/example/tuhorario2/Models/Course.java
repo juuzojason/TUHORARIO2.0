@@ -38,4 +38,14 @@ public class Course {
     }
 
 
+    public List<ChoiceOption> findOptionsByLabel(String label) {
+        List<ChoiceOption> result = new ArrayList<>();
+        for (ChoiceOption option : choiceOptions) {
+            if (option.hasLabel(label)) {
+                result.add(option);
+            }
+        }
+        return result;
+    }
+
 }
