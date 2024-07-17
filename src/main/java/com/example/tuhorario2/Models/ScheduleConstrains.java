@@ -117,8 +117,8 @@ public class ScheduleConstrains {
     public byte gapsPerWeek(ArrayList<ChoiceOption> schedule) {
         byte totalGaps = 0;
         for (ChoiceOption option : schedule) {
-            for (Pair<Byte, Byte> hourPair : option.getHourList()) {
-                byte gap = (byte) (hourPair.getValue() - hourPair.getKey());
+            for (byte[] hourPair : option.getHourList()) {
+                byte gap = (byte) (hourPair[1] - hourPair[0]);
                 totalGaps += gap;
             }
         }
@@ -129,8 +129,8 @@ public class ScheduleConstrains {
     public byte maxGap(ArrayList<ChoiceOption> schedule) {
         byte maxGap = 0;
         for (ChoiceOption option : schedule) {
-            for (Pair<Byte, Byte> hourPair : option.getHourList()) {
-                byte gap = (byte) (hourPair.getValue() - hourPair.getKey());
+            for (byte[] hourPair : option.getHourList()) {
+                byte gap = (byte) (hourPair[1] - hourPair[0]);
                 if (gap > maxGap) {
                     maxGap = gap;
                 }
@@ -144,12 +144,12 @@ public class ScheduleConstrains {
         byte minHour = 21;
         byte maxHour = 6;
         for (ChoiceOption option : schedule) {
-            for (Pair<Byte, Byte> hourPair : option.getHourList()) {
-                if (hourPair.getKey() < minHour) {
-                    minHour = hourPair.getKey();
+            for (byte[] hourPair : option.getHourList()) {
+                if (hourPair[0] < minHour) {
+                    minHour = hourPair[0];
                 }
-                if (hourPair.getValue() > maxHour) {
-                    maxHour = hourPair.getValue();
+                if (hourPair[1] > maxHour) {
+                    maxHour = hourPair[1];
                 }
             }
         }

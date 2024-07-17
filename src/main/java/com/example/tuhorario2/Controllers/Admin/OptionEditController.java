@@ -227,10 +227,10 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         }
 
         ArrayList<Byte> dayList = op.getDayList();
-        ArrayList<Pair<Byte,Byte>> hoursList = op.getHourList();
+        ArrayList<byte[]> hoursList = op.getHourList();
         for (int i = 0; i < dayList.size(); i++) {
-            Byte bh = hoursList.get(i).getKey(); //beginHour
-            Byte eh = hoursList.get(i).getValue(); //End Hour
+            Byte bh = hoursList.get(i)[0]; //beginHour
+            Byte eh = hoursList.get(i)[1]; //End Hour
             this.AddDayLister(dayList.get(i),bh,eh);
         }
 

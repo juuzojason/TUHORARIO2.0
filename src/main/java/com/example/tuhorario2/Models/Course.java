@@ -5,8 +5,17 @@ import java.util.List;
 
 public class Course {
 
+    //the id used to update and delete
+    private int id;
+    private String user = "";
+    private String Color = "#000000";
     private String name;
+
     private List<ChoiceOption> choiceOptions;
+
+
+    //private CourseCardController card;
+
 
     public Course(String name, int days) {
         this.name = name;
