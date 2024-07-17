@@ -73,7 +73,7 @@ public class ChoiceOption {
         this.labelList.add(s);
     }
 
-    //TODO method crosses with choiceOption
+
     //Do: when a day and a begin-end hour crosses or matches with any of this's
     //Returns: true or false, matches or not
     @Override
@@ -99,8 +99,7 @@ public class ChoiceOption {
                     byte thisEnd = thisHourPair.getValue();
                     byte otherBegin = otherHourPair.getKey();
                     byte otherEnd = otherHourPair.getValue();
-                    if ((thisBegin < otherEnd && thisEnd > otherBegin) ||
-                            (otherBegin < thisEnd && otherEnd > thisBegin)) {
+                    if ((otherBegin < thisEnd && otherEnd > thisBegin)) {
                         return true;
                     }
                 }

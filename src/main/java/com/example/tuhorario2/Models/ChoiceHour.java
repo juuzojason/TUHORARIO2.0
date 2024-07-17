@@ -4,7 +4,6 @@ public class ChoiceHour {
     //the 8-bit data use to store the hour and the minute
     private byte data;
 
-
     public ChoiceHour(int hour, int minute){
         if (minute > 45) minute = 45;
         if (minute < 0) minute = 0;
@@ -22,11 +21,11 @@ public class ChoiceHour {
     public ChoiceHour(byte data){
         this.data = data;
     }
+
     //TODO necesary constructors
 
-    //TODO method return the hour in 24h format 00:00
     @Override
-    public String toString(){return "";}
+    public String toString(){return toString(data);}
 
     public static String toString(byte data){
         return getHour(data) + ":" + getMinute(data);
@@ -37,16 +36,14 @@ public class ChoiceHour {
     //please tell me there is another way, like a interface or something for now we are using this thing
     public boolean isGreaterThan(ChoiceHour b){return true;}
 
-
-    //TODO method get Hour
     public int getHour(){
         return getHour(this.data);
     }
+
     public static int getHour(byte data){
         return (data >> 2) + 6;
     }
 
-    //TODO method get Minute
     public int getMinute(){
         return getMinute(this.data);
     }
@@ -60,7 +57,6 @@ public class ChoiceHour {
     }
 
 
-    //TODO method set Hour
     public void setHour(int hour){
         if (hour > 21) hour =21;
         if (hour < 6) hour = 6;
@@ -69,7 +65,6 @@ public class ChoiceHour {
         data = (byte) ((hour << 2 ) + minute);
     }
 
-    //TODO method set Minute
     public void setMinute(int minute) {
         if (minute > 45) minute = 45;
         if (minute < 0) minute = 0;

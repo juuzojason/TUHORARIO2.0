@@ -17,7 +17,6 @@ public class ChoiceDay {
         return days.get("Eng")[n];
     }
 
-
     public static int NumOf(String s){
         return Arrays.asList(days.get("Eng")).indexOf(s);
     }

@@ -10,7 +10,7 @@ public class ScheduleConstrains {
     public static ArrayList<Function<Double, Double>> scoreFunctions = new ArrayList<>();
 
     static {
-        scoreFunctions.add(x -> x * x); //first one maxHour
+        scoreFunctions.add(x -> 10 - Math.log10(x)); //first one maxHour
         scoreFunctions.add(Math::exp); //second one minHour
         scoreFunctions.add(x -> 70 / x); //third one amount of days
         scoreFunctions.add(Math::log); //fourth the amount of favorite labels
@@ -94,22 +94,22 @@ public class ScheduleConstrains {
     }
 
     //TODO returns the sum of the max Gap of each day
-    public byte gapsPerWeek(ArrayList<ChoiceOption> schedule){
+    public static byte gapsPerWeek(ArrayList<ChoiceOption> schedule){
         return 0;
     }
 
     //TODO returns the max Gap between all days
-    public byte maxGap(ArrayList<ChoiceOption> schedule){
+    public static byte maxGap(ArrayList<ChoiceOption> schedule){
         return 0;
     }
 
     //TODO returns the range of hour of the schedule (max and min hour)
-    public byte[] hourRange(ArrayList<ChoiceOption> schedule){
+    public static byte[] hourRange(ArrayList<ChoiceOption> schedule){
         return null;
     }
 
     //TODO returns the amount of days of a schedule which is just a list of options
-    public byte amountDaysOf(ArrayList<ChoiceOption> schedule){
+    public static byte amountDaysOf(ArrayList<ChoiceOption> schedule){
         return 0;
     }
 

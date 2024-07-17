@@ -29,7 +29,7 @@ public class AppTest extends Application {
     public void start(Stage stage) throws Exception {
 
         // Show the dialog and wait
-        Group op = new CharlyDialogs().GroupPane(null);
+        ChoiceOption op = new CharlyDialogs().OptionPane(null);
 
     }
 }
