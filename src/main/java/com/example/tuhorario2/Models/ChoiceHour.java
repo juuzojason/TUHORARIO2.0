@@ -23,7 +23,6 @@ public class ChoiceHour {
     }
 
     //TODO necesary constructors
-
     @Override
     public String toString(){return toString(data);}
 
@@ -31,10 +30,12 @@ public class ChoiceHour {
         return getHour(data) + ":" + getMinute(data);
     }
 
-    //TODO method
+
     //Do: is the value b less than this
     //please tell me there is another way, like a interface or something for now we are using this thing
-    public boolean isGreaterThan(ChoiceHour b){return true;}
+    public boolean isGreaterThan(ChoiceHour b) {
+        return this.data > b.data;
+    }
 
     public int getHour(){
         return getHour(this.data);
@@ -64,6 +65,7 @@ public class ChoiceHour {
         byte minute = (byte) (data % 4);
         data = (byte) ((hour << 2 ) + minute);
     }
+
 
     public void setMinute(int minute) {
         if (minute > 45) minute = 45;

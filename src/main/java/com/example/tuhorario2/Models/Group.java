@@ -7,9 +7,15 @@ import java.util.function.Function;
 
 public class Group {
 
+    //the id used to update and delete
+    private int id;
+    private String user;
+    private String color = "#000000";
     private String name;
     private byte semester;
-    private String user;
+
+
+    //private GroupCardController card;
 
     private ArrayList<Course> courses;
 

@@ -2,6 +2,7 @@ package com.example.tuhorario2.Models;
 
 import java.util.ArrayList;
 import java.util.function.Function;
+import javafx.util.Pair;
 
 public class ScheduleConstrains {
 
@@ -85,57 +86,149 @@ public class ScheduleConstrains {
     }
 
     //TODO sets all the constraint to a default value;
-    public void setDefaultConstraints(){
+    public void setDefaultConstraints() {
+        HourRangeConstraint[0] = 6; // Default min hour
+        HourRangeConstraint[1] = 21; // Default max hour
+        for (int i = 0; i < DaysConstraint.length; i++) {
+            DaysConstraint[i] = false; // No day constraints by default
+        }
+        LabelConstraint.clear(); // No label constraints by default
+        FavoriteLabels.clear(); // No favorite labels by default
+        MaxGapTime = 0; // Default max gap
+        MaxGapsPerWeek = 0; // Default max gaps per week
+        MaxDays = 5; // Default max days
     }
 
     //TODO returns the favorite labels that the schedule has
-    public ArrayList<String> Favorites(ArrayList<ChoiceOption> schedule){
-        return null;
+    public ArrayList<String> Favorites(ArrayList<ChoiceOption> schedule) {
+        ArrayList<String> favorites = new ArrayList<>();
+        for (ChoiceOption option : schedule) {
+            for (String label : option.getLabelList()) {
+                if (FavoriteLabels.contains(label) && !favorites.contains(label)) {
+                    favorites.add(label);
+                }
+            }
+        }
+        return favorites;
     }
 
+
     //TODO returns the sum of the max Gap of each day
-    public static byte gapsPerWeek(ArrayList<ChoiceOption> schedule){
-        return 0;
+
+    public byte gapsPerWeek(ArrayList<ChoiceOption> schedule) {
+        byte totalGaps = 0;
+        for (ChoiceOption option : schedule) {
+            for (byte[] hourPair : option.getHourList()) {
+                byte gap = (byte) (hourPair[1] - hourPair[0]);
+                totalGaps += gap;
+            }
+        }
+        return totalGaps;
     }
 
     //TODO returns the max Gap between all days
-    public static byte maxGap(ArrayList<ChoiceOption> schedule){
-        return 0;
+    public byte maxGap(ArrayList<ChoiceOption> schedule) {
+        byte maxGap = 0;
+        for (ChoiceOption option : schedule) {
+            for (byte[] hourPair : option.getHourList()) {
+                byte gap = (byte) (hourPair[1] - hourPair[0]);
+                if (gap > maxGap) {
+                    maxGap = gap;
+                }
+            }
+        }
+        return maxGap;
     }
 
     //TODO returns the range of hour of the schedule (max and min hour)
-    public static byte[] hourRange(ArrayList<ChoiceOption> schedule){
-        return null;
+    public byte[] hourRange(ArrayList<ChoiceOption> schedule) {
+        byte minHour = 21;
+        byte maxHour = 6;
+        for (ChoiceOption option : schedule) {
+            for (byte[] hourPair : option.getHourList()) {
+                if (hourPair[0] < minHour) {
+                    minHour = hourPair[0];
+                }
+                if (hourPair[1] > maxHour) {
+                    maxHour = hourPair[1];
+                }
+            }
+        }
+        return new byte[]{minHour, maxHour};
     }
 
     //TODO returns the amount of days of a schedule which is just a list of options
-    public static byte amountDaysOf(ArrayList<ChoiceOption> schedule){
-        return 0;
+    public byte amountDaysOf(ArrayList<ChoiceOption> schedule) {
+        boolean[] daysPresent = new boolean[6];
+        for (ChoiceOption option : schedule) {
+            for (byte day : option.getDayList()) {
+                daysPresent[day] = true;
+            }
+        }
+        byte count = 0;
+        for (boolean day : daysPresent) {
+            if (day) {
+                count++;
+            }
+        }
+        return count;
     }
 
-    //TODO function scoreOf: gives you the score of a schedule (which is just a list of options) using the scoreFunctions
+    //TODO function scoreOf: gives you the score of a schedule (which is just a list of options)
+    // using the scoreFunctions
     //this is going to be used for choosing the recommended schedule
     public static double ScoreOf(ArrayList<ChoiceOption> schedule){
+        ScheduleConstrains constraints = new ScheduleConstrains();
+
+        // Calculate the distance between max and min hour
+        byte[] hourRange = constraints.hourRange(schedule);
+        double maxHour = hourRange[1];
+        double minHour = hourRange[0];
+        double hourDistance = maxHour - minHour;
+
+        // Calculate the amount of days
+        double days = constraints.amountDaysOf(schedule);
+
+        // Calculate the max gap in a day
+        double maxGap = constraints.maxGap(schedule);
+
         double score = 0;
-        // add all score functions results
+        // Distance between max and min hour, less distance higher score
+        score += 100 - hourDistance;
+
+        // Amount of days, fewer days higher score
+        score += 100 - days;
+
+        // Max gap in a day, less gap higher score
+        score += 100 - maxGap;
+
         return score;
     }
 
     //TODO function matchesConstraints: tells you if is a valid schedule or not
     //this will be used for checking when a option can be added or not
-    public boolean matchesConstraints(ArrayList<ChoiceOption> schedule){
-        //checks the HourRangeConstraint
+    public boolean matchesConstraints(ArrayList<ChoiceOption> schedule) {
+        byte[] range = hourRange(schedule);
+        if (range[0] < HourRangeConstraint[0] || range[1] > HourRangeConstraint[1]) {
+            return false;}
 
-        //checks the DaysConstraint
+        for (ChoiceOption option : schedule) {
+            for (byte day : option.getDayList()) {
+                if (DaysConstraint[day]) {
+                    return false;
+                }}}
 
-        //checks the LabelConstraint
+        for (ChoiceOption option : schedule) {
+            for (String label : option.getLabelList()) {
+                if (LabelConstraint.contains(label)) {
+                    return false;
+                }}}
 
-        //checks the MaxGap constraint
-
-        //checks the MaxGapsPerWeek constraint
-
-        //check the MaxDay constraint
-        return true;
+        if (maxGap(schedule) > MaxGapTime) {
+            return false;}
+        if (gapsPerWeek(schedule) > MaxGapsPerWeek) {
+            return false;}
+        if (amountDaysOf(schedule) > MaxDays) {
+            return false;}
+        return true;}
     }
-
-}

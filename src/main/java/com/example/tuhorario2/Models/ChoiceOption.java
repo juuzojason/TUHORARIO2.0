@@ -1,5 +1,6 @@
 package com.example.tuhorario2.Models;
 
+import com.example.tuhorario2.Controllers.Admin.OptionEditController;
 import javafx.scene.control.Label;
 import javafx.util.Pair;
 import java.util.ArrayList;
@@ -13,12 +14,18 @@ public class ChoiceOption {
 
     private boolean active;
 
+    //the id used to update and delete
+    private int id;
     //List of labels
     private ArrayList<String> labelList;
     //List of Days
     private ArrayList<Byte> dayList;
     //List of begin and end hours
-    private ArrayList<Pair<Byte,Byte>> hourList;
+    private ArrayList<byte[]> hourList;
+
+
+    //private OptionCardController card;
+
 
 
     public ChoiceOption (){
@@ -41,7 +48,7 @@ public class ChoiceOption {
         return dayList;
     }
 
-    public ArrayList<Pair<Byte, Byte>> getHourList() {
+    public ArrayList<byte[]> getHourList() {
         return hourList;
     }
 
@@ -51,14 +58,12 @@ public class ChoiceOption {
     }
 
 
-    //TODO method equals
-    //returns: true or false, does not compare labels
 
     //DONETODO method add day
     //Do: adds the day and the begin-end hour
     public void addDay(byte day, byte bhour, byte ehour){
         dayList.add(day);
-        hourList.add(new Pair<>(bhour,ehour));
+        hourList.add(new byte[]{bhour,ehour});
     }
 
     //DONETODO method remove day
@@ -74,8 +79,9 @@ public class ChoiceOption {
     }
 
 
-    //Do: when a day and a begin-end hour crosses or matches with any of this's
-    //Returns: true or false, matches or not
+
+    //DONETODO method equals
+    //returns: true or false, does not compare labels
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -86,20 +92,23 @@ public class ChoiceOption {
         return dayList.equals(that.dayList) && hourList.equals(that.hourList);
     }
 
-
+    //DONETODO method crosses with choiceOption
+    //Do: when a day and a begin-end hour crosses or matches with any of this's
+    //Returns: true or false, matches or not
     public boolean crossesWith(ChoiceOption other) {
         for (int i = 0; i < this.dayList.size(); i++) {
             byte thisDay = this.dayList.get(i);
-            Pair<Byte, Byte> thisHourPair = this.hourList.get(i);
+            byte[] thisHourPair = this.hourList.get(i);
             for (int j = 0; j < other.dayList.size(); j++) {
                 byte otherDay = other.dayList.get(j);
-                Pair<Byte, Byte> otherHourPair = other.hourList.get(j);
+                byte[] otherHourPair = other.hourList.get(j);
                 if (thisDay == otherDay) {
-                    byte thisBegin = thisHourPair.getKey();
-                    byte thisEnd = thisHourPair.getValue();
-                    byte otherBegin = otherHourPair.getKey();
-                    byte otherEnd = otherHourPair.getValue();
-                    if ((otherBegin < thisEnd && otherEnd > thisBegin)) {
+                    byte thisBegin = thisHourPair[0];
+                    byte thisEnd = thisHourPair[1];
+                    byte otherBegin = otherHourPair[0];
+                    byte otherEnd = otherHourPair[1];
+                    if ((thisBegin < otherEnd && thisEnd > otherBegin) ||
+                            (otherBegin < thisEnd && otherEnd > thisBegin)) {
                         return true;
                     }
                 }
@@ -110,19 +119,19 @@ public class ChoiceOption {
 
 
 
-    //TODO Encript method
+    //DONETODO Encript method
     public String encript() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < dayList.size(); i++) {
-            sb.append(dayList.get(i)).append(",").append(hourList.get(i).getKey())
-                    .append(",").append(hourList.get(i).getValue()).append(";");
+            sb.append(dayList.get(i)).append(",").append(hourList.get(i)[0])
+                    .append(",").append(hourList.get(i)[1]).append(";");
         }
         return sb.toString();
     }
 
 
 
-    //TODO List of dayOptions in a string kind of a toString
+    //DONETODO List of dayOptions in a string kind of a toString
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -130,16 +139,15 @@ public class ChoiceOption {
         sb.append("Days and Hours:\n");
         for (int i = 0; i < dayList.size(); i++) {
             sb.append("Day: ").append(dayList.get(i)).append(", Begin: ")
-                    .append(hourList.get(i).getKey()).append(", End: ")
-                    .append(hourList.get(i).getValue()).append("\n");
+                    .append(hourList.get(i)[0]).append(", End: ")
+                    .append(hourList.get(i)[1]).append("\n");
         }
-        sb.append("Active: ").append(active).append("\n");
         return sb.toString();
     }
 
 
 
-    //TODO hasLabel tells you if this has a label
+    //DONETODO hasLabel tells you if this has a label
     public boolean hasLabel(String label) {
         return labelList.contains(label);
     }
