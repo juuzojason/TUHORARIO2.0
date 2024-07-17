@@ -4,7 +4,6 @@ public class ChoiceHour {
     //the 8-bit data use to store the hour and the minute
     private byte data;
 
-
     public ChoiceHour(int hour, int minute){
         if (minute > 45) minute = 45;
         if (minute < 0) minute = 0;
@@ -22,11 +21,10 @@ public class ChoiceHour {
     public ChoiceHour(byte data){
         this.data = data;
     }
+
     //TODO necesary constructors
-
-
     @Override
-    public String toString(){return "";}
+    public String toString(){return toString(data);}
 
     public static String toString(byte data){
         return getHour(data) + ":" + getMinute(data);
@@ -39,15 +37,13 @@ public class ChoiceHour {
         return this.data > b.data;
     }
 
-
-
     public int getHour(){
         return getHour(this.data);
     }
+
     public static int getHour(byte data){
         return (data >> 2) + 6;
     }
-
 
     public int getMinute(){
         return getMinute(this.data);
@@ -60,7 +56,6 @@ public class ChoiceHour {
     public byte getData(){
         return this.data;
     }
-
 
 
     public void setHour(int hour){

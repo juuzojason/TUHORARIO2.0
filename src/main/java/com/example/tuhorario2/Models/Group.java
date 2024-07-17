@@ -80,7 +80,6 @@ public class Group {
 
         Course c = courses.get(nCourse);
         for (ChoiceOption co : c.getChoiceOptions()){
-            Function<ArrayList<ChoiceOption>,Double> fun = ScheduleConstrains::ScoreOf;
             //verifies if it collides with any of the chosen options
             boolean colides = false;
             for (ChoiceOption coChosen : scs){
