@@ -1,11 +1,12 @@
 package com.example.tuhorario2.Models;
 
+import com.example.tuhorario2.Controllers.Admin.CardObject;
 import com.example.tuhorario2.Controllers.Admin.OptionEditController;
 import javafx.scene.control.Label;
 import javafx.util.Pair;
 import java.util.ArrayList;
 
-public class ChoiceOption {
+public class ChoiceOption implements CardObject {
 
     public static byte NormalDay = 0;
     public static byte NormalBeginHour = 0;
@@ -152,4 +153,18 @@ public class ChoiceOption {
         return labelList.contains(label);
     }
 
+    @Override
+    public void read(String json) {
+
+    }
+
+    @Override
+    public void createCard() {
+
+    }
+
+    @Override
+    public void updateCard() {
+
+    }
 }

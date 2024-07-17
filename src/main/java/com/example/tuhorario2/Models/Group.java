@@ -1,11 +1,13 @@
 package com.example.tuhorario2.Models;
 
+import com.example.tuhorario2.Controllers.Admin.CardObject;
+
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.List;
 import java.util.function.Function;
 
-public class Group {
+public class Group implements CardObject {
 
     //the id used to update and delete
     private int id;
@@ -108,5 +110,20 @@ public class Group {
             scs.remove(co);
         }
         return schedules;
+    }
+
+    @Override
+    public void read(String json) {
+
+    }
+
+    @Override
+    public void createCard() {
+
+    }
+
+    @Override
+    public void updateCard() {
+
     }
 }
