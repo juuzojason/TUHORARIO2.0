@@ -1,22 +1,10 @@
 package com.example.tuhorario2;
 
-import com.example.tuhorario2.Controllers.Admin.OptionEditController;
-import com.example.tuhorario2.Models.CharlyDialogs;
+import com.example.tuhorario2.Models.DBDriver;
+import com.example.tuhorario2.Views.CharlyDialogs;
 import com.example.tuhorario2.Models.ChoiceOption;
-import com.example.tuhorario2.Models.Group;
 import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.util.Optional;
 
 public class AppTest extends Application {
 
@@ -30,6 +18,6 @@ public class AppTest extends Application {
 
         // Show the dialog and wait
         ChoiceOption op = new CharlyDialogs().OptionPane(null);
-
+        DBDriver driver = new DBDriver();
     }
 }

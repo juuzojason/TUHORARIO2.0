@@ -1,6 +1,6 @@
 package com.example.tuhorario2.Controllers.User;
 
-import com.example.tuhorario2.Controllers.Admin.Card;
+import com.example.tuhorario2.Models.Card;
 import com.example.tuhorario2.Models.Course;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

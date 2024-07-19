@@ -1,21 +1,16 @@
 package com.example.tuhorario2.Controllers.Admin;
 
-import com.example.tuhorario2.Models.CharlyDialogs;
+import com.example.tuhorario2.Views.CharlyDialogs;
 import com.example.tuhorario2.Models.ChoiceDay;
 import com.example.tuhorario2.Models.ChoiceHour;
 import com.example.tuhorario2.Models.ChoiceOption;
 import javafx.collections.FXCollections;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.DialogPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 

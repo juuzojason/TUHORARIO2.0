@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<DialogPane fx:id="Dialog" expanded="true" minHeight="-Infinity" prefHeight="100.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Models.CharlyDialog">
+<DialogPane fx:id="Dialog" expanded="true" minHeight="-Infinity" prefHeight="100.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Views.CharlyDialog">
    <header>
       <HBox fx:id="TitleBar" alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #55AD9B;">
          <HBox alignment="CENTER" prefHeight="40.0" prefWidth="297.0">

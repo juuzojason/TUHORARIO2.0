@@ -1,9 +1,11 @@
-package com.example.tuhorario2.Models;
+package com.example.tuhorario2.Views;
 
 import com.example.tuhorario2.Controllers.Admin.GroupEditorController;
 import com.example.tuhorario2.Controllers.Admin.HourEditorController;
 import com.example.tuhorario2.Controllers.Admin.OptionEditController;
-import com.example.tuhorario2.Controllers.Admin.OptionEditDayListerController;
+import com.example.tuhorario2.Models.ChoiceHour;
+import com.example.tuhorario2.Models.ChoiceOption;
+import com.example.tuhorario2.Models.Group;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
@@ -39,7 +41,7 @@ public class CharlyDialogs {
             if (con.getSignal().equals("Accept")){
                 return hed.getObject();
             }
-        } catch (IOException e){
+        } catch (IOException ignored){
         }
         return null;
     }
@@ -70,8 +72,7 @@ public class CharlyDialogs {
             if (con.getSignal().equals("Accept")){
                 return hed.getObject();
             }
-        } catch (IOException e){
-            System.out.println(e);
+        } catch (IOException ignored){
         }
         return null;
     }
@@ -101,8 +102,7 @@ public class CharlyDialogs {
             if (con.getSignal().equals("Accept")){
                 return hed.getObject();
             }
-        } catch (IOException e){
-            System.out.println(e);
+        } catch (IOException ignored){
         }
         return null;
     }
