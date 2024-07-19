@@ -10,8 +10,8 @@ import java.util.function.Function;
 public class Group implements CardObject {
 
     //the id used to update and delete
-    private int id;
-    private String user;
+    private int ID;
+    private int userID;
     private String color = "#000000";
     private String name;
     private byte semester;

@@ -16,7 +16,7 @@ public class ChoiceOption implements CardObject {
     private boolean active;
 
     //the id used to update and delete
-    private int id;
+    private int ID;
     //List of labels
     private ArrayList<String> labelList;
     //List of Days
