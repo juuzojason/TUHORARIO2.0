@@ -25,13 +25,16 @@ public class Model {
         return model;
     }
 
+    public void Register() {
+    }
+
     public ViewFactory getViewFactory() {
         return viewFactory;
     }
 
-    public void Login(){
 
+    public User loginAsUser(String username, String password) {
+        this.user = dbDriver.loginAsUser(username,password);
+        return this.user;
     }
-
-
 }
