@@ -8,26 +8,29 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<DialogPane fx:id="Dialog" expanded="true" minHeight="-Infinity" prefHeight="100.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Models.CharlyDialog">
+<DialogPane fx:id="Dialog" expanded="true" minHeight="-Infinity" prefHeight="75.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Views.CharlyDialog">
    <header>
-      <HBox fx:id="TitleBar" alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="600.0" style="-fx-background-color: #55AD9B;">
-         <HBox alignment="CENTER" prefHeight="40.0" prefWidth="297.0">
+      <HBox fx:id="TitleBar" alignment="TOP_RIGHT" prefHeight="25.0" prefWidth="337.0" style="-fx-background-color: #55AD9B;">
+         <HBox alignment="CENTER" prefHeight="40.0" prefWidth="1000.0">
             <Label fx:id="TitleLabel" alignment="CENTER" prefHeight="17.0" prefWidth="170.0" text="Title" textFill="WHITE" />
          </HBox>
-         <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0">
-            <Button fx:id="CloseButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="12.0" prefWidth="12.0" style="-fx-background-radius: 8; -fx-background-color: #D8EFD3;" />
+         <HBox alignment="CENTER" minHeight="25.0" minWidth="40.0" prefHeight="25.0" prefWidth="40.0">
+            <Button fx:id="CloseButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="12.0" prefWidth="12.0" style="-fx-background-radius: 8; -fx-background-color: #D8EFD3;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
          </HBox>
       </HBox>
    </header>
    <content>
-      <VBox fx:id="ContentContainer" alignment="BOTTOM_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="100.0" spacing="10.0" style="-fx-background-radius: 0 0 15 15; -fx-background-color: #F1F8E8;">
+      <VBox fx:id="ContentContainer" alignment="BOTTOM_CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="100.0" spacing="10.0" style="-fx-background-radius: 0 0 15 15; -fx-background-color: #F1F8E8;">
          <AnchorPane prefHeight="40.0" prefWidth="200.0">
-            <Button fx:id="CancelButton" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #55AD9B; -fx-background-radius: 15;" text="Cancel" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="15.0">
+            <Button fx:id="CancelButton" layoutX="14.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #55AD9B; -fx-background-radius: 15;" text="Cancel" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="5.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="AcceptButton" layoutX="228.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #95D2B3; -fx-background-radius: 15;" text="Accept" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="15.0">
+            <Button fx:id="AcceptButton" layoutX="228.0" layoutY="8.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" style="-fx-background-color: #95D2B3; -fx-background-radius: 15;" text="Accept" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

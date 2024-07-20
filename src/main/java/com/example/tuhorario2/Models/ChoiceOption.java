@@ -1,9 +1,5 @@
 package com.example.tuhorario2.Models;
 
-import com.example.tuhorario2.Controllers.Admin.CardObject;
-import com.example.tuhorario2.Controllers.Admin.OptionEditController;
-import javafx.scene.control.Label;
-import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class ChoiceOption implements CardObject {
@@ -17,6 +13,7 @@ public class ChoiceOption implements CardObject {
 
     //the id used to update and delete
     private int id;
+    private int uid;
     //List of labels
     private ArrayList<String> labelList;
     //List of Days
@@ -28,6 +25,16 @@ public class ChoiceOption implements CardObject {
     //private OptionCardController card;
 
 
+
+    public ChoiceOption (int id, int uid){
+        this.id = id;
+        this.uid = uid;
+        labelList = new ArrayList<>();
+        dayList = new ArrayList<>();
+        hourList = new ArrayList<>();
+        active = true;
+
+    }
 
     public ChoiceOption (){
         labelList = new ArrayList<>();
@@ -53,9 +60,20 @@ public class ChoiceOption implements CardObject {
         return hourList;
     }
 
+    public void setLabelList(ArrayList<String> labelList) {
+        this.labelList = labelList;
+    }
+
+    public void setDayList(ArrayList<Byte> dayList) {
+        this.dayList = dayList;
+    }
+
+    public void setHourList(ArrayList<byte[]> hourList) {
+        this.hourList = hourList;
+    }
+
     public void setActive(boolean active){
         this.active = active;
-
     }
 
 
@@ -153,18 +171,19 @@ public class ChoiceOption implements CardObject {
         return labelList.contains(label);
     }
 
+
     @Override
     public void read(String json) {
-
+        System.out.println("cre");
     }
 
     @Override
     public void createCard() {
-
+        System.out.println("cre");
     }
 
     @Override
     public void updateCard() {
-
+        System.out.println("cre");
     }
 }

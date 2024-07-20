@@ -1,17 +1,12 @@
 package com.example.tuhorario2.Models;
 
-import com.example.tuhorario2.Controllers.Admin.CardObject;
-
 import java.util.ArrayList;
-import java.util.Optional;
-import java.util.List;
-import java.util.function.Function;
 
 public class Group implements CardObject {
 
     //the id used to update and delete
     private int id;
-    private String user;
+    private int uid;
     private String color = "#000000";
     private String name;
     private byte semester;
@@ -21,9 +16,18 @@ public class Group implements CardObject {
 
     private ArrayList<Course> courses;
 
-    public Group(String name, byte s) {
+    public Group(int id,int uid, String color, String name, byte semester){
+        this.id = id;
+        this.uid = uid;
+        this.color = color;
         this.name = name;
-        this.semester = s;
+        this.semester = semester;
+    }
+
+    public Group(String color, String name, byte semester){
+        this.color = color;
+        this.name = name;
+        this.semester = semester;
     }
 
     public void setName(String name) {
@@ -45,6 +49,11 @@ public class Group implements CardObject {
     public void addCourse(Course e) {
         this.courses.add(e);
     }
+
+    public void addCourses(ArrayList<Course> courses){
+        this.courses.addAll(courses);
+    }
+
 
     public void removeCourse(Course e) {
         this.courses.remove(e);
@@ -125,5 +134,9 @@ public class Group implements CardObject {
     @Override
     public void updateCard() {
 
+    }
+
+    public String getColor() {
+        return this.color;
     }
 }

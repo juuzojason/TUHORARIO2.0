@@ -1,7 +1,5 @@
 package com.example.tuhorario2.Models;
 
-import com.example.tuhorario2.Controllers.Admin.CardObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,7 @@ public class Course implements CardObject {
 
     //the id used to update and delete
     private int id;
-    private String user = "";
+    private int uid;
     private String Color = "#000000";
     private String name;
 
@@ -19,7 +17,16 @@ public class Course implements CardObject {
     //private CourseCardController card;
 
 
-    public Course(String name, int days) {
+    public Course(int id, int uid, String color, String name) {
+        this.id = id;
+        this.uid = uid;
+        this.Color = color;
+        this.name = name;
+        this.choiceOptions = new ArrayList<>();
+    }
+
+    public Course(String color, String name) {
+        this.Color = color;
         this.name = name;
         this.choiceOptions = new ArrayList<>();
     }
@@ -48,6 +55,14 @@ public class Course implements CardObject {
         choiceOptions.remove(choiceOption);
     }
 
+    public void addOptions(ArrayList<ChoiceOption> options){
+        this.choiceOptions.addAll(options);
+    }
+
+    public String getColor(){
+        return this.Color;
+    }
+
     public List<ChoiceOption> findOptionsByLabel(String label) {
         List<ChoiceOption> result = new ArrayList<>();
         for (ChoiceOption option : choiceOptions) {
@@ -73,4 +88,7 @@ public class Course implements CardObject {
     public void updateCard() {
 
     }
+
+
+    //TODO TOSTRING
 }
