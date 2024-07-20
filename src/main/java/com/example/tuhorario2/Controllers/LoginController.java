@@ -1,33 +1,32 @@
 package com.example.tuhorario2.Controllers;
 
 import com.example.tuhorario2.Models.DBDriver;
+import com.example.tuhorario2.Models.Model;
 import com.example.tuhorario2.Models.User;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
 
-    @FXML
-    private TextField txtuser;
-    @FXML
-    private PasswordField txtpass;
-    @FXML
-    private Button loginbtn;
-    @FXML
-    private Hyperlink singup;
+    public TextField txtuser;
+    public PasswordField txtpass;
+    public Button loginbtn;
+    public Hyperlink singup;
 
-    private DBDriver dbDriver;
+    public BorderPane viewBrPn;
 
-    public void initialize() {
-        dbDriver = new DBDriver();
-    }
 
-    @FXML
     private void handleLogin() {
         String username = txtuser.getText();
         String password = txtpass.getText();
@@ -37,7 +36,7 @@ public class LoginController {
             return;
         }
 
-        User user = dbDriver.loginAsUser(username, password);
+        User user = Model.getInstance().loginAsUser(username, password);
 
         if (user != null) {
             System.out.println("Login successful.   User ID:" + user.getId());
@@ -47,19 +46,11 @@ public class LoginController {
     }
 
 
-    /*@FXML
+
     private void handleSignUp() {
-        try {
-            Stage stage = (Stage) singup.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/path/to/Registro.fxml"));
-            Parent root = loader.load();
-            stage.getScene().setRoot(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "No se pudo cargar la pantalla de registro.");
-        }
+        Model.getInstance().Register();
     }
-   */
+
 
 
     private void showAlert(Alert.AlertType type, String title, String message) {
@@ -68,5 +59,15 @@ public class LoginController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loginbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                handleLogin();
+            }
+        });
     }
 }
