@@ -5,11 +5,17 @@ import com.example.tuhorario2.Models.DBDriver;
 import com.example.tuhorario2.Models.Group;
 import com.example.tuhorario2.Views.CharlyDialogs;
 import com.example.tuhorario2.Models.ChoiceOption;
+import com.example.tuhorario2.Views.ViewFactory;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import javax.swing.text.View;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -23,7 +29,7 @@ public class AppTest extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        stage.initStyle(StageStyle.UNDECORATED);
         // Show the dialog and wait
         ChoiceOption cho = new ChoiceOption();
         cho.setLabelList(new ArrayList<>(Arrays.asList("OOOOOOOOOOOOOOO", "OOOOOOOOOOOOOOO","OOOOOOOOOOOOOOO", "OOOOOOOOOOOOOOO")));
@@ -31,5 +37,11 @@ public class AppTest extends Application {
         cho.setHourList(new ArrayList<byte[]>(Arrays.asList(new byte[]{8,16},new byte[]{12,16},new byte[]{16,24},new byte[]{16,24})));
         ChoiceOption co = new CharlyDialogs().OptionPane(cho);
         System.out.println(co.toString());
+
+
+        ViewFactory v = new ViewFactory();
+        v.LoginView();
+        v.RegisterView();
+
     }
 }
