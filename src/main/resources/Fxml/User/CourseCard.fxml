@@ -11,17 +11,17 @@
     <Button fx:id="DeleteButton" layoutX="181.0" layoutY="37.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
     <Label fx:id="NameLabel" alignment="BOTTOM_LEFT" layoutX="22.0" layoutY="10.0" prefHeight="25.0" prefWidth="135.0" text="Filosofia">
         <font>
-          <Font size="16.0" />
+            <Font size="16.0" />
         </font>
     </Label>
     <Label fx:id="UserLabel" layoutX="22.0" layoutY="33.0" prefHeight="17.0" prefWidth="135.0" text="By: Other User">
         <font>
-          <Font size="9.0" />
+            <Font size="9.0" />
         </font>
     </Label>
     <Label fx:id="InfoLabel" layoutX="22.0" layoutY="49.0" prefHeight="17.0" prefWidth="135.0" text="7 Options | 6 Labels">
         <font>
-          <Font size="9.0" />
+            <Font size="9.0" />
         </font>
     </Label>
 </Pane>
