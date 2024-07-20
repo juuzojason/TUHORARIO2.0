@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="40.0" prefWidth="2000.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Controllers.GeneralTitleController">
+    <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="77.0" spacing="10.0" AnchorPane.rightAnchor="10.0">
+        <Button fx:id="MiniButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="16.0" prefWidth="16.0" />
+        <Button fx:id="CLoseButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="16.0" prefWidth="16.0" />
+    </HBox>
+    <ImageView fx:id="TileImage" fitHeight="25.0" fitWidth="30.0" layoutX="7.0" layoutY="8.0">
+        <Image url="@../../../../../../Downloads/_0d980139-45f6-4a70-8d08-7794ac0306b3.jpg" />
+    </ImageView>
+    <Label fx:id="TitleLabel" layoutX="39.0" layoutY="12.0" text="Title" />
+</AnchorPane>

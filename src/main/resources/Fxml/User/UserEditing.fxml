@@ -30,7 +30,6 @@
    </HBox>
    <ScrollPane prefHeight="360.0" prefWidth="690.0">
       <FlowPane fx:id="CardsContainer" alignment="TOP_CENTER" hgap="36.0" prefHeight="360.0" prefWidth="744.0" vgap="21.0">
-                vgap="21.0">
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
          </padding>
