@@ -36,6 +36,14 @@ public class ChoiceOption implements CardObject {
 
     }
 
+    public ChoiceOption (){
+        labelList = new ArrayList<>();
+        dayList = new ArrayList<>();
+        hourList = new ArrayList<>();
+        active = true;
+
+    }
+
     public boolean isActive(){
         return active;
     }

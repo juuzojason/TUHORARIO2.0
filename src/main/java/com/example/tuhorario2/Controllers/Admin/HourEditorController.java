@@ -20,13 +20,14 @@ public class HourEditorController implements Initializable, ObjectEditor<ChoiceH
 
 
     public Spinner<Integer> HoursSpinner;
+    private SpinnerValueFactory<Integer> valueFactory;
     public ChoiceBox<String> MinuteChoiceBox;
 
     public VBox content;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(6,21);
+        valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(6,21);
         valueFactory.setValue(6);
         HoursSpinner.setValueFactory(valueFactory);
 
@@ -42,6 +43,8 @@ public class HourEditorController implements Initializable, ObjectEditor<ChoiceH
 
 
     public void setHour(Byte hour) {
+        valueFactory.setValue(ChoiceHour.getHour(hour));
+        MinuteChoiceBox.setValue(MinuteChoiceBox.getItems().get(hour % 4));
     }
 
 

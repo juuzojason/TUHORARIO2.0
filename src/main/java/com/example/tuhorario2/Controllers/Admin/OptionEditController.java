@@ -2,9 +2,12 @@ package com.example.tuhorario2.Controllers.Admin;
 
 import com.example.tuhorario2.Models.ChoiceOption;
 import com.example.tuhorario2.Models.ObjectEditor;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
@@ -37,7 +40,12 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         LabelControllerList = new ArrayList<>();
         DayControllerList = new ArrayList<>();
 
-        AddDayLister();
+        AddLabelButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                AddLabelLister(AddLabelTextField.getText());
+            }
+        });
     }
 
     @FXML
@@ -84,34 +92,6 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         }
     }
 
-
-    public void AddLabelLister() {
-        String tfText = AddLabelTextField.getText();
-        if (tfText.isBlank() || tfText.isEmpty()) return;
-        if (LabelFlowPane.getChildren().size() >= MaxLabels) {
-            disableLabelButton();
-            return;
-        }
-        if (tfText.length() > MaxLabelLength) return;
-
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(getClass().getResource("/Fxml/Admin/Listers/OptionEditLabelLister.fxml"));
-            HBox LabelLister = fxmlLoader.load();
-            LabelFlowPane.getChildren().add(LabelLister);
-
-            OptionEditLabelListerController labelController = fxmlLoader.getController();
-            this.LabelControllerList.add(labelController);
-            labelController.setObject(LabelLister);
-            labelController.setFather(this);
-            labelController.setFatherList(LabelFlowPane);
-            labelController.setText(tfText);
-
-            AddLabelTextField.setText("");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public void AddLabelLister(String s) {
         if (s.isBlank() || s.isEmpty()) return;
@@ -160,27 +140,16 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
 
     public void removeLabelControllerList(OptionEditLabelListerController e){
         this.LabelControllerList.remove(e);
+        this.LabelFlowPane.getChildren().remove(e);
     }
 
     public void removeDayControllerList(OptionEditDayListerController e){
         this.DayControllerList.remove(e);
+        this.DayVBox.getChildren().remove(e);
     }
 
 
-    //TODO fix this method : have to do some crutial checks before
-    public ChoiceOption getChoiceOption() {
-        ChoiceOption newer = new ChoiceOption();
-        for (OptionEditLabelListerController optionEditLabelListerController : LabelControllerList) {
-            String lab = optionEditLabelListerController.getText();
-            newer.addLabel(lab);
-        }
 
-        for (OptionEditDayListerController e : DayControllerList) {
-            newer.addDay((byte) e.getDay(), e.getBeginHour(), e.getEndHour());
-        }
-
-        return newer;
-    }
 
     @Override
     public VBox getContent() {
@@ -190,7 +159,16 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
     //TODO create another case when op is null
     @Override
     public void setObject(ChoiceOption op) {
-        if (op == null) return;
+
+        if (op == null){
+            AddDayLister();
+            return;
+        }
+
+        for (Node d : LabelFlowPane.getChildren()){
+            LabelFlowPane.getChildren().remove(d);
+        }
+        LabelControllerList = new ArrayList<>();
 
         ArrayList<String> lblList = op.getLabelList();
         for (String u : lblList){
@@ -207,10 +185,20 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
 
     }
 
-
+    //Gets the option edited
     @Override
     public ChoiceOption getObject() {
-        return getChoiceOption();
+        ChoiceOption newer = new ChoiceOption();
+        for (OptionEditLabelListerController optionEditLabelListerController : LabelControllerList) {
+            String lab = optionEditLabelListerController.getText();
+            newer.addLabel(lab);
+        }
+
+        for (OptionEditDayListerController e : DayControllerList) {
+            newer.addDay((byte) e.getDay(), e.getBeginHour(), e.getEndHour());
+        }
+
+        return newer;
     }
 
     //TODO complete this method so it verifies if the option is valid

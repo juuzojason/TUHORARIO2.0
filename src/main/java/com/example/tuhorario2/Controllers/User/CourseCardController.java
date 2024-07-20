@@ -18,8 +18,6 @@ public class CourseCardController implements Initializable, Card<Course> {
     public Label UserLabel;
     public Label InfoLabel;
 
-    public Course cardObject;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

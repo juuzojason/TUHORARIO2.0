@@ -96,7 +96,7 @@ public class OptionEditDayListerController implements Initializable {
 
 
     public void OnBeginHourButton() {
-        ChoiceHour hour = new CharlyDialogs().HourPane(null); //TODO change this
+        ChoiceHour hour = new CharlyDialogs().HourPane(new ChoiceHour(beginHour));
         if (hour != null){
             setBeginHour(hour.getData());
             if (beginHour > endHour) setEndHour(hour.getData());
@@ -106,7 +106,7 @@ public class OptionEditDayListerController implements Initializable {
 
 
     public void OnEndHourButton() {
-        ChoiceHour hour = new CharlyDialogs().HourPane(null); //TODO change this
+        ChoiceHour hour = new CharlyDialogs().HourPane(new ChoiceHour(endHour));
         if (hour != null){
             setEndHour(hour.getData());
             if (beginHour > endHour) setBeginHour(hour.getData()

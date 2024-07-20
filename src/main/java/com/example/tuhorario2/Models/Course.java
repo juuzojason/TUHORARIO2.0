@@ -25,6 +25,12 @@ public class Course implements CardObject {
         this.choiceOptions = new ArrayList<>();
     }
 
+    public Course(String color, String name) {
+        this.Color = color;
+        this.name = name;
+        this.choiceOptions = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }
@@ -53,6 +59,10 @@ public class Course implements CardObject {
         this.choiceOptions.addAll(options);
     }
 
+    public String getColor(){
+        return this.Color;
+    }
+
     public List<ChoiceOption> findOptionsByLabel(String label) {
         List<ChoiceOption> result = new ArrayList<>();
         for (ChoiceOption option : choiceOptions) {
@@ -78,4 +88,7 @@ public class Course implements CardObject {
     public void updateCard() {
 
     }
+
+
+    //TODO TOSTRING
 }

@@ -59,8 +59,8 @@ public class CharlyDialog extends DialogPane implements Initializable{
         });
 
         TitleBar.setOnMouseDragged(event -> {
-            Dialog.setLayoutX(event.getScreenX() - xOffset);
-            Dialog.setLayoutX(event.getScreenY() - yOffset);
+            //Dialog.setLayoutX(event.getScreenX() - xOffset);
+            //Dialog.setLayoutX(event.getScreenY() - yOffset);
         });
 
         CancelButton.setCancelButton(true);
@@ -73,9 +73,6 @@ public class CharlyDialog extends DialogPane implements Initializable{
     }
 
     public void addContent(VBox con){
-        HBox u = (HBox) TitleBar.getChildren().get(0);
-        u.setPrefWidth(con.getPrefWidth()-80);
-
 
         Dialog.setMinWidth(con.getPrefWidth()+20);
         Dialog.setMinHeight(con.getPrefHeight()+20+ TitleBar.getPrefHeight()+40);

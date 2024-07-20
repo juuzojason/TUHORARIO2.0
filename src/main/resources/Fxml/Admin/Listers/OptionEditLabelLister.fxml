@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="46.0" spacing="5.0" style="-fx-background-color: #404040; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Controllers.Admin.OptionEditLabelListerController">
+<HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="46.0" spacing="5.0" style="-fx-background-color: #404040; -fx-background-radius: 15;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Controllers.Admin.OptionEditLabelListerController">
    <opaqueInsets>
       <Insets />
    </opaqueInsets>

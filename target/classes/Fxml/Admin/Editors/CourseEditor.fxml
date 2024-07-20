@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.tuhorario2.Controllers.Admin.CourseEditorController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<VBox fx:id="ContentVBox" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Controllers.Admin.CourseEditorController">
+   <HBox alignment="CENTER" prefHeight="50.0" prefWidth="256.0" spacing="20.0">
+      <Label text="Name" />
+      <TextField fx:id="NameTextField" prefHeight="25.0" prefWidth="121.0" />
+   </HBox>
+   <HBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="256.0">
+      <ColorPicker fx:id="ColorPicker" editable="true" promptText="Select Color" />
+   </HBox>
+</VBox>

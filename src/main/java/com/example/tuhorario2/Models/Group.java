@@ -24,6 +24,12 @@ public class Group implements CardObject {
         this.semester = semester;
     }
 
+    public Group(String color, String name, byte semester){
+        this.color = color;
+        this.name = name;
+        this.semester = semester;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -128,5 +134,9 @@ public class Group implements CardObject {
     @Override
     public void updateCard() {
 
+    }
+
+    public String getColor() {
+        return this.color;
     }
 }
