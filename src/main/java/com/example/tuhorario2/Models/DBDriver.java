@@ -15,7 +15,7 @@ public class DBDriver {
         }
     }
 
-    //TODO function that logins to a USER given its username and password
+    //function that logins to a USER given its username and password
     public User loginAsUser(String username, String password){
         Statement statement;
         ResultSet result = null;
