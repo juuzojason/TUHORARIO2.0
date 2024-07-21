@@ -19,6 +19,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
+
     public TextField txtuser;
     public PasswordField txtpass;
     public Button loginbtn;
@@ -26,6 +27,16 @@ public class LoginController implements Initializable {
 
     public BorderPane viewBrPn;
 
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loginbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                handleLogin();
+            }
+        });
+    }
 
     private void handleLogin() {
         String username = txtuser.getText();
@@ -61,13 +72,5 @@ public class LoginController implements Initializable {
         alert.showAndWait();
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loginbtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                handleLogin();
-            }
-        });
-    }
+
 }

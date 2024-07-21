@@ -182,12 +182,6 @@ public class DBDriver {
         }
     }
 
-
-    //TODO fuction that creates a new option
-    // - needs to add all labels to the table as well
-    // - also needs to add all the days to the respective table
-
-
     public boolean updateGroup(int groupID, int userID, String newColor, String newName, int newSemester) {
         String checkOwnershipSQL = "SELECT * FROM Groups WHERE GroupID = ? AND UserID = ?";
         String updateGroupSQL = "UPDATE Groups SET GroupColor = ?, GroupName = ?, GroupSemester = ? WHERE GroupID = ?";
@@ -316,16 +310,133 @@ public class DBDriver {
     }
 
 
-    //Note MUST CHECK IF THE USER IS THE OWNER
+
     //TODO function that updates the option
     // - must update all labels as well
     // - must update all the days as well
+    public boolean updateOption(int optionID, int userID, ArrayList<Byte> newDays,
+                                ArrayList<byte[]> newHours,ArrayList<String> newLabels) {
+
+        //  I'm not sure about using arraylist, if you see something wrong, correct it
+
+        String checkOwnershipSQL = "SELECT * FROM Options WHERE OptionID = ? AND UserID = ?";
+        String deleteDaysSQL = "DELETE FROM Days WHERE OptionID = ?";
+        String deleteHoursSQL = "DELETE FROM Hours WHERE OptionID = ?";
+        String deleteLabelsSQL = "DELETE FROM Labels WHERE OptionID = ?";
+        String insertDaySQL = "INSERT INTO Days (OptionID, Day) VALUES (?, ?)";
+        String insertHourSQL = "INSERT INTO Hours (OptionID, DayStartT, DayEndT) VALUES (?, ?, ?)";
+        String insertLabelSQL = "INSERT INTO Labels (OptionID, LabelText) VALUES (?, ?)";
+
+        try (PreparedStatement Check = c.prepareStatement(checkOwnershipSQL);
+             PreparedStatement DeleteDays = c.prepareStatement(deleteDaysSQL);
+             PreparedStatement DeleteHours = c.prepareStatement(deleteHoursSQL);
+             PreparedStatement DeleteLabels = c.prepareStatement(deleteLabelsSQL);
+             PreparedStatement InsertDay = c.prepareStatement(insertDaySQL);
+             PreparedStatement InsertHour = c.prepareStatement(insertHourSQL);
+             PreparedStatement InsertLabel = c.prepareStatement(insertLabelSQL)) {
+
+            // Check if the user is the owner
+            Check.setInt(1, optionID);
+            Check.setInt(2, userID);
+            try (ResultSet rs = Check.executeQuery()) {
+                if (!rs.next()) {
+                    return false; // User is not the owner
+                }
+            }
+
+            // Delete old entries
+            DeleteDays.setInt(1, optionID);
+            DeleteDays.executeUpdate();
+            DeleteHours.setInt(1, optionID);
+            DeleteHours.executeUpdate();
+            DeleteLabels.setInt(1, optionID);
+            DeleteLabels.executeUpdate();
+
+            // Insert new days
+            for (Byte day : newDays) {
+                InsertDay.setInt(1, optionID);
+                InsertDay.setByte(2, day);
+                InsertDay.addBatch();
+            }
+            InsertDay.executeBatch();
+
+            // Insert new hours
+            for (byte[] hour : newHours) {
+                InsertHour.setInt(1, optionID);
+                InsertHour.setByte(2, hour[0]);
+                InsertHour.setByte(3, hour[1]);
+                InsertHour.addBatch();
+            }
+            InsertHour.executeBatch();
+
+            // Insert new labels
+            for (String label : newLabels) {
+                InsertLabel.setInt(1, optionID);
+                InsertLabel.setString(2, label);
+                InsertLabel.addBatch();
+            }
+            InsertLabel.executeBatch();
+
+            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     //TODO function that delete the option
     // - must delete all the label as well
     // - must delete all days as well
+    public boolean deleteOption(int optionID, int userID) {
+        String checkOwnershipSQL = "SELECT * FROM Options WHERE OptionID = ? AND UserID = ?";
+        String deleteDaysSQL = "DELETE FROM Days WHERE OptionID = ?";
+        String deleteHoursSQL = "DELETE FROM Hours WHERE OptionID = ?";
+        String deleteLabelsSQL = "DELETE FROM Labels WHERE OptionID = ?";
+        String deleteOptionSQL = "DELETE FROM Options WHERE OptionID = ?";
 
-    //TODO select functions
+        try (PreparedStatement Check = c.prepareStatement(checkOwnershipSQL);
+             PreparedStatement DeleteDays = c.prepareStatement(deleteDaysSQL);
+             PreparedStatement DeleteHours = c.prepareStatement(deleteHoursSQL);
+             PreparedStatement DeleteLabels = c.prepareStatement(deleteLabelsSQL);
+             PreparedStatement DeleteOption = c.prepareStatement(deleteOptionSQL)) {
+
+            // Check if the user is the owner
+            Check.setInt(1, optionID);
+            Check.setInt(2, userID);
+            try (ResultSet rs = Check.executeQuery()) {
+                if (!rs.next()) {
+                    return false; // User is not the owner
+                }
+            }
+
+            // Delete associated entries
+            DeleteDays.setInt(1, optionID);
+            DeleteDays.executeUpdate();
+            DeleteHours.setInt(1, optionID);
+            DeleteHours.executeUpdate();
+            DeleteLabels.setInt(1, optionID);
+            DeleteLabels.executeUpdate();
+
+            // Delete the option itself
+            DeleteOption.setInt(1, optionID);
+            return DeleteOption.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+    // I see difficult!!
+
+    //TODO fuction that creates a new option
+    // - needs to add all labels to the table as well
+    // - also needs to add all the days to the respective table
+
 
 
 }
