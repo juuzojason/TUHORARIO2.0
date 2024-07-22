@@ -3,7 +3,7 @@ package com.example.tuhorario2.Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course {
+public class Course implements CardObject {
 
     //the id used to update and delete
     private int id;

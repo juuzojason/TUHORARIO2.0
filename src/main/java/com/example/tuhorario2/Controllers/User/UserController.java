@@ -1,6 +1,7 @@
 package com.example.tuhorario2.Controllers.User;
 
 import com.example.tuhorario2.Controllers.GeneralTitleController;
+import com.example.tuhorario2.Models.Group;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class UserController extends BorderPane implements Initializable {
@@ -36,6 +38,9 @@ public class UserController extends BorderPane implements Initializable {
     public UserMenuController umControl;
 
     public BorderPane viewBrPn;
+
+
+    public ArrayList<Group> groupList;
 
 
     @Override
@@ -68,4 +73,7 @@ public class UserController extends BorderPane implements Initializable {
         viewBrPn.setCenter(userEditing);
     }
 
+    public void deleteGroup(Group g) {
+        this.groupList.remove(g);
+    }
 }

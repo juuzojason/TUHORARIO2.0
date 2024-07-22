@@ -1,6 +1,7 @@
 package com.example.tuhorario2.Models;
 
 import com.example.tuhorario2.Controllers.User.GroupCardController;
+import com.example.tuhorario2.Controllers.User.UserController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
@@ -18,6 +19,7 @@ public class Group implements CardObject {
 
 
     private GroupCardController card;
+    private UserController ucontrol;
 
     private ArrayList<Course> courses;
 
@@ -157,6 +159,12 @@ public class Group implements CardObject {
 
     }
 
+    @Override
+    public void delete(){
+        this.ucontrol.deleteGroup(this);
+    }
+
+
     public String getColor() {
         return this.color;
     }
@@ -171,5 +179,13 @@ public class Group implements CardObject {
 
     public int getId() {
         return this.id;
+    }
+
+    public void setUcontrol(UserController ucontrol) {
+        this.ucontrol = ucontrol;
+    }
+
+    public UserController getUcontrol() {
+        return ucontrol;
     }
 }
