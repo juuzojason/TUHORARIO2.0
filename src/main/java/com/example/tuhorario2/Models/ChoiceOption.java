@@ -200,4 +200,9 @@ public class ChoiceOption {
 //    public void copy() {
 //
 //    }
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

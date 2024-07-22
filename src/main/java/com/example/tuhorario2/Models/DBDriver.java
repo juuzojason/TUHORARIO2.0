@@ -1,9 +1,7 @@
 package com.example.tuhorario2.Models;
 
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DBDriver {
     Connection c;
@@ -20,7 +18,7 @@ public class DBDriver {
     //function that logins to a USER given its username and password
     public User loginAsUser(String username, String password){
         Statement statement;
-        ResultSet result = null;
+        ResultSet result;
         try {
             statement = c.createStatement();
             result = statement.executeQuery("SELECT * FROM Users WHERE UserName = '" +username+ "' AND UserPassword = '"+password+"';");
@@ -29,7 +27,6 @@ public class DBDriver {
                 return new User(username, id);
             }
         } catch (SQLException e){
-            e.printStackTrace();
         }
         return null;
     }
@@ -51,7 +48,6 @@ public class DBDriver {
             }
             return gs;
         } catch (SQLException e){
-            e.printStackTrace();
         }
         return new ArrayList<Group>();
     }
@@ -146,9 +142,9 @@ public class DBDriver {
                 s.add(bh);
             }
         } catch (SQLException e){
-            e.printStackTrace();
+            return new ArrayList<String>();
         }
-        return new ArrayList<String>();
+        return s;
     }
 
 
@@ -168,7 +164,6 @@ public class DBDriver {
             g.setUID(UserID);
             return affectedRows > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -187,7 +182,6 @@ public class DBDriver {
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -396,24 +390,37 @@ public class DBDriver {
 
 
 
-    public boolean insertOption(ChoiceOption choiceOption, int CourseID){
+    public synchronized boolean insertOption(ChoiceOption choiceOption, int CourseID){
         String insertLabel = "INSERT INTO Options (CourseID) VALUES("+CourseID+")";
-        String getID = "SELECT OptionID from Options WHE"
         int OpID = 0;
+
+        Statement statement;
+        ResultSet result = null;
         try {
+            //Inserts the new option
             PreparedStatement insertLabelStmt = c.prepareStatement(insertLabel);
             insertLabelStmt.addBatch();
             insertLabelStmt.executeBatch();
+
+
+            //updates the option_object's ID
+            statement = c.createStatement();
+            result = statement.executeQuery("SELECT MAX(OptionID) AS op from Options");
+            OpID = Integer.parseInt(result.getString("op"));
+            choiceOption.setId(OpID);
+
+            //Inserts option labels and days
+            insertLabels(choiceOption);
+            insertDays(choiceOption);
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-
-        return true;
     }
 
-    public boolean insertLabels(ChoiceOption co){
+    public synchronized boolean insertLabels(ChoiceOption co){
         int OptionID = co.getId();
         ArrayList<String> labels = co.getLabelList();
         String insertLabel = "INSERT INTO LABELS (optionID, LabelText) VALUES(?,?)";
@@ -433,7 +440,7 @@ public class DBDriver {
         }
     }
 
-    public boolean insertDays(ChoiceOption co){
+    public synchronized boolean insertDays(ChoiceOption co){
         ArrayList<Byte> days = co.getDayList();
         ArrayList<byte[]> hours = co.getHourList();
         int OptionID = co.getId();
