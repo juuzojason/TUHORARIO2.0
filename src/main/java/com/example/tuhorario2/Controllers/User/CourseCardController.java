@@ -35,6 +35,11 @@ public class CourseCardController implements Initializable, Card<Course> {
     }
 
     @Override
+    public void Update() {
+
+    }
+
+    @Override
     public void delete() {
 
     }

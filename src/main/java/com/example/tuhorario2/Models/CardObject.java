@@ -10,4 +10,5 @@ public interface CardObject {
     public void createCard();
     public Pane getCard();
     public void copy();
+    public void delete();
 }
