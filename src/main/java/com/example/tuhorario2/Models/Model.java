@@ -47,4 +47,8 @@ public class Model {
     public User getUser(){
         return this.user;
     }
+
+    public DBDriver getDbDriver() {
+        return dbDriver;
+    }
 }

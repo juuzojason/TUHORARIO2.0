@@ -19,7 +19,9 @@ public class GroupEditorController implements Initializable, ObjectEditor<Group>
     public javafx.scene.control.ColorPicker ColorPicker;
     private SpinnerValueFactory<Integer> valueFactory;
 
-    //TODO FXML
+
+    private Group ob;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1,32);
@@ -33,10 +35,11 @@ public class GroupEditorController implements Initializable, ObjectEditor<Group>
         return this.content;
     }
 
-    //TODO implementable METHODS
+
     @Override
     public void setObject(Group object) {
         if (object == null) return;
+        ob = object;
         NameTextField.setText(object.getName());
         valueFactory.setValue((int) object.getSemester());
         ColorPicker.setValue(Color.valueOf(object.getColor()));
@@ -44,7 +47,11 @@ public class GroupEditorController implements Initializable, ObjectEditor<Group>
 
     @Override
     public Group getObject() {
-        return new Group("#"+ColorPicker.getValue().toString().substring(2,8),NameTextField.getText(),SemesterSpinner.getValue().byteValue());
+        if (ob == null) ob = new Group("2","3", (byte) 1);
+        ob.setName(NameTextField.getText());
+        ob.setSemester(SemesterSpinner.getValue().byteValue());
+        ob.setColor("#"+ColorPicker.getValue().toString().substring(2,8));
+        return ob;
     }
 
     @Override

@@ -20,6 +20,10 @@ public class GeneralTitleController implements Initializable {
     public Label TitleLabel;
 
     private Stage st;
+
+
+    //TODO add implementation draggable to be able to drag all windows
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MiniButton.setOnAction(new EventHandler<ActionEvent>() {

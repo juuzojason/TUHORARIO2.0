@@ -175,6 +175,7 @@ public class DBDriver {
 
 
 
+    //TODO change so it get just a Course
     public boolean insertCourse(int groupID, String color, String name) {
         String sql = "INSERT INTO Courses (CourseName, CourseColor, GroupID) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
@@ -189,7 +190,11 @@ public class DBDriver {
         }
     }
 
-    public boolean updateGroup(int groupID, int userID, String newColor, String newName, int newSemester) {
+
+    //TODO fix this
+    public boolean updateGroup(Group g) {
+        int groupID;
+        int userID;String newColor; String newName; int newSemester;
         String checkOwnershipSQL = "SELECT * FROM Groups WHERE GroupID = ? AND UserID = ?";
         String updateGroupSQL = "UPDATE Groups SET GroupColor = ?, GroupName = ?, GroupSemester = ? WHERE GroupID = ?";
 
@@ -220,6 +225,7 @@ public class DBDriver {
     }
 
 
+    //TODO change so it get just a Course
     public boolean deleteGroup(int groupID, int userID) {
         String checkOwnershipSQL = "SELECT * FROM Groups WHERE GroupID = ? AND UserID = ?";
         String deleteGroupSQL = "DELETE FROM Groups WHERE GroupID = ?";

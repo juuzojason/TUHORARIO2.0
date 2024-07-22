@@ -3,7 +3,7 @@ package com.example.tuhorario2.Models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Course implements CardObject {
+public class Course {
 
     //the id used to update and delete
     private int id;
@@ -74,17 +74,22 @@ public class Course implements CardObject {
     }
 
 
-    @Override
-    public void read(String json) {
-    }
-
-    @Override
-    public void createCard() {
-
-    }
-    @Override
-    public void updateCard(){
-    }
+//    @Override
+//    public void read(String json) {
+//    }
+//
+//    @Override
+//    public void createCard() {
+//
+//    }
+//    @Override
+//    public void updateCard(){
+//    }
+//
+//    @Override
+//    public void copy() {
+//
+//    }
 
     @Override
     public String toString(){

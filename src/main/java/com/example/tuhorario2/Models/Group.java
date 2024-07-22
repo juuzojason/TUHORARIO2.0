@@ -1,5 +1,10 @@
 package com.example.tuhorario2.Models;
 
+import com.example.tuhorario2.Controllers.User.GroupCardController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Group implements CardObject {
@@ -12,7 +17,7 @@ public class Group implements CardObject {
     private byte semester;
 
 
-    //private GroupCardController card;
+    private GroupCardController card;
 
     private ArrayList<Course> courses;
 
@@ -121,18 +126,34 @@ public class Group implements CardObject {
         return schedules;
     }
 
-    @Override
-    public void read(String json) {
 
+
+    public Pane getCard(){
+        return this.card.getPane();
     }
 
+    //TODO create card
     @Override
     public void createCard() {
-
+        if (card == null){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/User/<NeededCard>"));
+                fxmlLoader.load();
+                this.card = fxmlLoader.getController();
+                this.card.setObject(this);
+                this.card.Update();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
+
+
+
+    //TODO copy must create an exact copy of this in the database
     @Override
-    public void updateCard() {
+    public void copy() {
 
     }
 
@@ -142,5 +163,13 @@ public class Group implements CardObject {
 
     public void setUID(int uid){
         this.uid = uid;
+    }
+
+    public void setColor(String s) {
+        this.color = s;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }
