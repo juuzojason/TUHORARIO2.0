@@ -19,7 +19,7 @@ public class Group implements CardObject {
 
     private GroupCardController card;
 
-    private ArrayList<Course> courses;
+    private ArrayList<Course> courses = new ArrayList<>();
 
     public Group(int id,int uid, String color, String name, byte semester){
         this.id = id;
@@ -76,6 +76,9 @@ public class Group implements CardObject {
         return courses.size();
     }
 
+    public ArrayList<Course> getCourses() {
+        return this.courses;
+    }
 
 //    // Finds all options that have a specific day in their dayList ;)
 //    public List<ChoiceOption> findOptionsByDay(byte day) {
@@ -150,11 +153,13 @@ public class Group implements CardObject {
 
 
 
-
     //TODO copy must create an exact copy of this in the database
     @Override
     public void copy() {
 
+    }
+    public int getuserid(){
+        return this.uid;
     }
 
     public String getColor() {
@@ -173,3 +178,4 @@ public class Group implements CardObject {
         return this.id;
     }
 }
+

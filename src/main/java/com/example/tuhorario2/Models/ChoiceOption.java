@@ -44,6 +44,15 @@ public class ChoiceOption {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+
     public boolean isActive(){
         return active;
     }

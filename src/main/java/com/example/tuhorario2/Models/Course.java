@@ -31,6 +31,10 @@ public class Course {
         this.choiceOptions = new ArrayList<>();
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -91,6 +95,11 @@ public class Course {
 //
 //    }
 
+
+    public int getUid() {
+        return uid;
+    }
+
     @Override
     public String toString(){
         return "Course{" +
@@ -102,5 +111,6 @@ public class Course {
                 '}';
 
     }
+
 
 }
