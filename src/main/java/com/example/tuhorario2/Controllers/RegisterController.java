@@ -80,5 +80,12 @@ public class RegisterController implements Initializable {
                 handleRegister();
             }
         });
+
+        gobacklink.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Model.getInstance().getViewFactory().LoginView();
+            }
+        });
     }
 }

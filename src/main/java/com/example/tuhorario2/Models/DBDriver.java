@@ -444,13 +444,15 @@ public class DBDriver {
     // - needs to add all labels to the table as well
     // - also needs to add all the days to the respective table
     public boolean insertOption(ChoiceOption choiceOption){
+        return true;
     }
 
     public boolean insertLabels(ArrayList<String> labels, int OptionID){
+        return true;
     }
 
     public boolean insertDays(ArrayList<Byte> days,ArrayList<byte[]> hours, int OptionID){
-
+        return true;
     }
 
 }

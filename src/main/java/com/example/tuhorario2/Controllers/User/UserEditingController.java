@@ -22,7 +22,6 @@ public class UserEditingController extends VBox implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
 

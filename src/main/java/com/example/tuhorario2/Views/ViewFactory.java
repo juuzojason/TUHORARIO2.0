@@ -34,7 +34,7 @@ public class ViewFactory {
     */
 
     public void UserView(){
-        createStage("/Fxml/Admin/User/User.fxml");
+        createStage("/Fxml/User/User.fxml");
     }
 
     public void LoginView(){

@@ -1,10 +1,7 @@
 package com.example.tuhorario2;
 
-import com.example.tuhorario2.Models.Course;
-import com.example.tuhorario2.Models.DBDriver;
-import com.example.tuhorario2.Models.Group;
+import com.example.tuhorario2.Models.*;
 import com.example.tuhorario2.Views.CharlyDialogs;
-import com.example.tuhorario2.Models.ChoiceOption;
 import com.example.tuhorario2.Views.ViewFactory;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,8 +36,7 @@ public class AppTest extends Application {
 //        System.out.println(co.toString());
 
 
-        ViewFactory v = new ViewFactory();
-        v.LoginView();
+        Model.getInstance().getViewFactory().LoginView();
 
     }
 }
