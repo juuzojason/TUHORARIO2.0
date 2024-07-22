@@ -139,4 +139,8 @@ public class Group implements CardObject {
     public String getColor() {
         return this.color;
     }
+
+    public void setUID(int uid){
+        this.uid = uid;
+    }
 }

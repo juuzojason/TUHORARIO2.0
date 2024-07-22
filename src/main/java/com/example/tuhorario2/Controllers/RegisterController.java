@@ -1,41 +1,39 @@
 package com.example.tuhorario2.Controllers;
 
 import com.example.tuhorario2.Models.DBDriver;
+import com.example.tuhorario2.Models.Model;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.application.Platform;
 
-public class RegisterController {
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    @FXML
-    private TextField txtusername;
-    @FXML
-    private TextField txtpass;
-    @FXML
-    private TextField txtpass2;
-    @FXML
-    private Button registerbtn;
-    @FXML
-    private Hyperlink gobacklink;
+public class RegisterController implements Initializable {
+
+    public BorderPane viewBrPn;
+    public TextField txtusername;
+    public TextField txtpass;
+    public TextField txtpass2;
+    public Button registerbtn;
+    public Hyperlink gobacklink;
 
 
-    private DBDriver dbDriver;
-
-    public void initialize() {
-        dbDriver = new DBDriver();
-    }
-
-    @FXML
+    //TODO change the alert so instead of being a popup is a red label telling you what is wrong
     private void handleRegister() {
         String username = txtusername.getText();
         String password = txtpass.getText();
         String confirmPassword = txtpass2.getText();
 
-        if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+        if (username.isBlank() || password.isBlank() || confirmPassword.isBlank()) {
             showAlert(Alert.AlertType.ERROR, "Mistake", "All fields must be completed.");
             return;
         }
@@ -44,6 +42,12 @@ public class RegisterController {
             showAlert(Alert.AlertType.ERROR, "Mistake", "Passwords do not match.");
             return;
         }
+
+        if (!Model.getInstance().Register()){
+            showAlert(Alert.AlertType.ERROR, "Error", "There is already a user with username: " + username);
+            return;
+        }
+
     }
 
    /*
@@ -66,5 +70,15 @@ public class RegisterController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        registerbtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                handleRegister();
+            }
+        });
     }
 }

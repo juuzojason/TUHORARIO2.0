@@ -2,6 +2,7 @@ package com.example.tuhorario2.Models;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DBDriver {
     Connection c;
@@ -150,14 +151,21 @@ public class DBDriver {
     }
 
 
-    public boolean createGroup(int userID, String color, String name, int semester) {
+    public boolean createGroup(Group g) {
+        int UserID = Model.getInstance().getUser().getId();
+        String color = g.getColor();
+        String name = g.getName();
+        int semester = g.getSemester();
         String sql = "INSERT INTO Groups (UserID, GroupColor, GroupName, GroupSemester) VALUES (?, ?, ?, ?)";
         try (PreparedStatement group = c.prepareStatement(sql)) {
-            group.setInt(1, userID);
+            group.setInt(1, UserID);
             group.setString(2, color);
             group.setString(3, name);
             group.setInt(4, semester);
             int affectedRows = group.executeUpdate();
+
+            g.setUID(UserID);
+            //TODO set group id to the group object
             return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -167,13 +175,12 @@ public class DBDriver {
 
 
 
-    public boolean createCourse(int groupID, int userID, String color, String name) {
-        String sql = "INSERT INTO Courses (GroupID, UserID, CourseColor, CourseName) VALUES (?, ?, ?, ?)";
+    public boolean insertCourse(int groupID, String color, String name) {
+        String sql = "INSERT INTO Courses (CourseName, CourseColor, GroupID) VALUES (?, ?, ?)";
         try (PreparedStatement pstmt = c.prepareStatement(sql)) {
-            pstmt.setInt(1, groupID);
-            pstmt.setInt(2, userID);
-            pstmt.setString(3, color);
-            pstmt.setString(4, name);
+            pstmt.setInt(3, groupID);
+            pstmt.setString(2, color);
+            pstmt.setString(1, name);
             int affectedRows = pstmt.executeUpdate();
             return affectedRows > 0;
         } catch (SQLException e) {
@@ -436,7 +443,14 @@ public class DBDriver {
     //TODO fuction that creates a new option
     // - needs to add all labels to the table as well
     // - also needs to add all the days to the respective table
+    public boolean insertOption(ChoiceOption choiceOption){
+    }
 
+    public boolean insertLabels(ArrayList<String> labels, int OptionID){
+    }
 
+    public boolean insertDays(ArrayList<Byte> days,ArrayList<byte[]> hours, int OptionID){
+
+    }
 
 }

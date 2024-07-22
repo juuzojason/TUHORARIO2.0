@@ -31,17 +31,16 @@ public class AppTest extends Application {
     public void start(Stage stage) throws Exception {
         stage.initStyle(StageStyle.UNDECORATED);
         // Show the dialog and wait
-        ChoiceOption cho = new ChoiceOption();
-        cho.setLabelList(new ArrayList<>(Arrays.asList("OOOOOOOOOOOOOOO", "OOOOOOOOOOOOOOO","OOOOOOOOOOOOOOO", "OOOOOOOOOOOOOOO")));
-        cho.setDayList(new ArrayList<Byte>(Arrays.asList((byte) 0,(byte) 2,(byte) 2,(byte) 4)));
-        cho.setHourList(new ArrayList<byte[]>(Arrays.asList(new byte[]{8,16},new byte[]{12,16},new byte[]{16,24},new byte[]{16,24})));
-        ChoiceOption co = new CharlyDialogs().OptionPane(cho);
-        System.out.println(co.toString());
+//        ChoiceOption cho = new ChoiceOption();
+//        cho.setLabelList(new ArrayList<>(Arrays.asList("OOOOOOOOOOOOOOO", "OOOOOOOOOOOOOOO","OOOOOOOOOOOOOOO", "OOOOOOOOOOOOOOO")));
+//        cho.setDayList(new ArrayList<Byte>(Arrays.asList((byte) 0,(byte) 2,(byte) 2,(byte) 4)));
+//        cho.setHourList(new ArrayList<byte[]>(Arrays.asList(new byte[]{8,16},new byte[]{12,16},new byte[]{16,24},new byte[]{16,24})));
+//        ChoiceOption co = new CharlyDialogs().OptionPane(cho);
+//        System.out.println(co.toString());
 
 
         ViewFactory v = new ViewFactory();
         v.LoginView();
-        v.RegisterView();
 
     }
 }

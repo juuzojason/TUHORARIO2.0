@@ -25,8 +25,13 @@ public class Model {
         return model;
     }
 
-    public void Register() {
+    //TODO: we have to register a new person, but we first have to make sure there is not another person with the same username
+    // - we also need to return if the registration was successful or not
+    public boolean Register() {
+        return false;
     }
+
+
 
     public ViewFactory getViewFactory() {
         return viewFactory;
@@ -35,6 +40,11 @@ public class Model {
 
     public User loginAsUser(String username, String password) {
         this.user = dbDriver.loginAsUser(username,password);
+        return this.user;
+    }
+
+
+    public User getUser(){
         return this.user;
     }
 }
