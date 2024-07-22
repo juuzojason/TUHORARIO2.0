@@ -76,19 +76,26 @@ public class Course implements CardObject {
 
     @Override
     public void read(String json) {
-
     }
 
     @Override
     public void createCard() {
 
     }
+    @Override
+    public void updateCard(){
+    }
 
     @Override
-    public void updateCard() {
+    public String toString(){
+        return "Course{" +
+                "id=" + id +
+                ", uid=" + uid +
+                ", Color='" + Color + '\'' +
+                ", name='" + name + '\'' +
+                ", choiceOptions=" + choiceOptions +
+                '}';
 
     }
 
-
-    //TODO TOSTRING
 }

@@ -22,7 +22,7 @@ public class ChoiceHour {
         this.data = data;
     }
 
-    //TODO necesary constructors
+
     @Override
     public String toString(){return toString(data);}
 

@@ -85,7 +85,7 @@ public class ScheduleConstrains {
         HourRangeConstraint[1] = b;
     }
 
-    //TODO sets all the constraint to a default value;
+
     public void setDefaultConstraints() {
         HourRangeConstraint[0] = 6; // Default min hour
         HourRangeConstraint[1] = 21; // Default max hour
@@ -99,7 +99,7 @@ public class ScheduleConstrains {
         MaxDays = 5; // Default max days
     }
 
-    //TODO returns the favorite labels that the schedule has
+
     public ArrayList<String> Favorites(ArrayList<ChoiceOption> schedule) {
         ArrayList<String> favorites = new ArrayList<>();
         for (ChoiceOption option : schedule) {
@@ -113,7 +113,7 @@ public class ScheduleConstrains {
     }
 
 
-    //TODO returns the sum of the max Gap of each day
+
 
     public byte gapsPerWeek(ArrayList<ChoiceOption> schedule) {
         byte totalGaps = 0;
@@ -126,7 +126,7 @@ public class ScheduleConstrains {
         return totalGaps;
     }
 
-    //TODO returns the max Gap between all days
+
     public byte maxGap(ArrayList<ChoiceOption> schedule) {
         byte maxGap = 0;
         for (ChoiceOption option : schedule) {
@@ -140,7 +140,7 @@ public class ScheduleConstrains {
         return maxGap;
     }
 
-    //TODO returns the range of hour of the schedule (max and min hour)
+
     public byte[] hourRange(ArrayList<ChoiceOption> schedule) {
         byte minHour = 21;
         byte maxHour = 6;
@@ -157,7 +157,7 @@ public class ScheduleConstrains {
         return new byte[]{minHour, maxHour};
     }
 
-    //TODO returns the amount of days of a schedule which is just a list of options
+
     public byte amountDaysOf(ArrayList<ChoiceOption> schedule) {
         boolean[] daysPresent = new boolean[6];
         for (ChoiceOption option : schedule) {
@@ -174,9 +174,8 @@ public class ScheduleConstrains {
         return count;
     }
 
-    //TODO function scoreOf: gives you the score of a schedule (which is just a list of options)
-    // using the scoreFunctions
-    //this is going to be used for choosing the recommended schedule
+
+
     public static double ScoreOf(ArrayList<ChoiceOption> schedule){
         ScheduleConstrains constraints = new ScheduleConstrains();
 
@@ -205,8 +204,7 @@ public class ScheduleConstrains {
         return score;
     }
 
-    //TODO function matchesConstraints: tells you if is a valid schedule or not
-    //this will be used for checking when a option can be added or not
+
     public boolean matchesConstraints(ArrayList<ChoiceOption> schedule) {
         byte[] range = hourRange(schedule);
         if (range[0] < HourRangeConstraint[0] || range[1] > HourRangeConstraint[1]) {
