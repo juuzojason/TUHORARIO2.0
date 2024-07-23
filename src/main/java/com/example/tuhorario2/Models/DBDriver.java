@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class DBDriver {
     Connection c;
 
+
     public DBDriver(){
         try{
             this.c = DriverManager.getConnection("jdbc:sqlite:TUHORARIO2BD.db");
@@ -13,6 +14,31 @@ public class DBDriver {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void registerUser(String username, String password) {
+        //register
+        String insertLabel = "INSERT INTO Users (UserName, UserPassword) VALUES('"+username+"','"+password+"')";
+        try {
+            PreparedStatement insertLabelStmt = c.prepareStatement(insertLabel);
+            insertLabelStmt.addBatch();
+            insertLabelStmt.executeBatch();
+        }catch (SQLException e) {
+        }
+    }
+
+
+    public boolean userExists(String username){
+        Statement statement;
+        ResultSet result;
+        try {
+            statement = c.createStatement();
+            result = statement.executeQuery("SELECT * FROM Users WHERE UserName = '" +username+ "'");
+            if (result.next()) return true;
+
+        } catch (SQLException e){
+        }
+        return false;
     }
 
     //function that logins to a USER given its username and password
@@ -469,5 +495,7 @@ public class DBDriver {
             return false;
         }
     }
+
+
 
 }

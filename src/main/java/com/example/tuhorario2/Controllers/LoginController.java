@@ -79,12 +79,6 @@ public class LoginController implements Initializable {
 
 
 
-    private void handleSignUp() {
-        Model.getInstance().Register();
-    }
-
-
-
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
