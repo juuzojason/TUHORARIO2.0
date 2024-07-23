@@ -11,15 +11,15 @@ import java.util.ArrayList;
 public class Group implements CardObject {
 
     //the id used to update and delete
-    private int id;
+    private int id = -1;
     private int uid;
     private String color = "#000000";
     private String name;
     private byte semester;
 
 
-    private GroupCardController card;
-    private UserController ucontrol;
+    private GroupCardController cardController;
+    private Pane card;
 
     private ArrayList<Course> courses = new ArrayList<>();
 
@@ -134,7 +134,7 @@ public class Group implements CardObject {
 
 
     public Pane getCard(){
-        return this.card.getPane();
+        return this.card;
     }
 
     //TODO create card
@@ -142,11 +142,11 @@ public class Group implements CardObject {
     public void createCard() {
         if (card == null){
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/User/<NeededCard>"));
-                fxmlLoader.load();
-                this.card = fxmlLoader.getController();
-                this.card.setObject(this);
-                this.card.Update();
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/User/GroupCard.fxml"));
+                card = fxmlLoader.load();
+                this.cardController = fxmlLoader.getController();
+                this.cardController.setObject(this);
+                this.cardController.Update();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -166,7 +166,7 @@ public class Group implements CardObject {
 
     @Override
     public void delete(){
-        this.ucontrol.deleteGroup(this);
+        Model.getInstance().deleteGroup(this);
     }
 
 
@@ -186,12 +186,8 @@ public class Group implements CardObject {
         return this.id;
     }
 
-    public void setUcontrol(UserController ucontrol) {
-        this.ucontrol = ucontrol;
-    }
-
-    public UserController getUcontrol() {
-        return ucontrol;
+    public void setId(int id) {
+        this.id = id;
     }
 }
 

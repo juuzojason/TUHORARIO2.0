@@ -148,12 +148,15 @@ public class DBDriver {
     }
 
 
-    public boolean createGroup(Group g) {
+    public synchronized boolean createGroup(Group g) {
         int UserID = Model.getInstance().getUser().getId();
         String color = g.getColor();
         String name = g.getName();
         int semester = g.getSemester();
-        String sql = "INSERT INTO Groups (UserID, GroupColor, GroupName, GroupSemester) VALUES (?, ?, ?, ?)";
+        int gid;
+
+
+        String sql = "INSERT INTO Groups (UserID, GroupColor, GroupName, GroupSemester) VALUES (?, ?, ?, ?);";
         try (PreparedStatement group = c.prepareStatement(sql)) {
             group.setInt(1, UserID);
             group.setString(2, color);
@@ -161,8 +164,15 @@ public class DBDriver {
             group.setInt(4, semester);
             int affectedRows = group.executeUpdate();
 
+            //Set the group user id
             g.setUID(UserID);
-            return affectedRows > 0;
+
+            // get the group id
+            Statement st = c.createStatement();
+            ResultSet result = st.executeQuery("SELECT MAX(GroupID) AS id FROM GROUPS;");
+            gid = result.getInt("id");
+            g.setId(gid);
+            return true;
         } catch (SQLException e) {
             return false;
         }

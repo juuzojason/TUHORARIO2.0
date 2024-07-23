@@ -2,6 +2,7 @@ package com.example.tuhorario2.Controllers.User;
 
 import com.example.tuhorario2.Controllers.GeneralTitleController;
 import com.example.tuhorario2.Models.Group;
+import com.example.tuhorario2.Models.Model;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,13 +63,8 @@ public class UserController extends BorderPane implements Initializable {
 
     public void setUserEditing(){
         if (this.userEditing == null){
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/User/UserEditing.fxml"));
-                userEditing = fxmlLoader.load();
-                this.ueControl = fxmlLoader.getController();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            userEditing = Model.getInstance().getViewFactory().getUserEditing();
+            ueControl = Model.getInstance().getViewFactory().getUeControl();
         }
         viewBrPn.setCenter(userEditing);
     }

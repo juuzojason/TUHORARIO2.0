@@ -10,11 +10,11 @@ public class Model {
     private final ViewFactory viewFactory;
     private final DBDriver dbDriver;
 
-    private ArrayList<Group> groups;
-
+    private final ArrayList<Group> generalGroupList;
     private Model(){
         viewFactory = new ViewFactory();
         dbDriver = new DBDriver();
+        generalGroupList = dbDriver.getGroups();
     }
 
 
@@ -43,6 +43,14 @@ public class Model {
         return this.user;
     }
 
+    //TODO logout should:
+    // - set user null
+    // - change view to login
+    // - delete all Cards
+    public void LogOut(){
+
+    }
+
 
     public User getUser(){
         return this.user;
@@ -50,5 +58,13 @@ public class Model {
 
     public DBDriver getDbDriver() {
         return dbDriver;
+    }
+
+    public void deleteGroup(Group group) {
+        this.generalGroupList.remove(group);
+    }
+
+    public ArrayList<Group> getGeneralGroupList() {
+        return generalGroupList;
     }
 }

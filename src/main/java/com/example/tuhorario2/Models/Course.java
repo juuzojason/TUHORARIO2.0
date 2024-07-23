@@ -1,5 +1,7 @@
 package com.example.tuhorario2.Models;
 
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,24 +80,6 @@ public class Course implements CardObject {
     }
 
 
-//    @Override
-//    public void read(String json) {
-//    }
-//
-//    @Override
-//    public void createCard() {
-//
-//    }
-//    @Override
-//    public void updateCard(){
-//    }
-//
-//    @Override
-//    public void copy() {
-//
-//    }
-
-
     public int getUid() {
         return uid;
     }
@@ -113,4 +97,23 @@ public class Course implements CardObject {
     }
 
 
+    @Override
+    public void createCard() {
+
+    }
+
+    @Override
+    public Pane getCard() {
+        return null;
+    }
+
+    @Override
+    public void copy() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }
