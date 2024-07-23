@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -30,14 +31,26 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        txtuser.setText("Dummy");
+        txtpass.setText("DUMMYDUMMY");
+
         loginbtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 handleLogin();
             }
         });
+
+        singup.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Model.getInstance().getViewFactory().RegisterView();
+            }
+        });
     }
 
+
+    //TODO change the alert so instead of being a popup is a red label telling you what is wrong
     private void handleLogin() {
         String username = txtuser.getText();
         String password = txtpass.getText();
@@ -51,6 +64,7 @@ public class LoginController implements Initializable {
 
         if (user != null) {
             System.out.println("Login successful.   User ID:" + user.getId());
+            Model.getInstance().getViewFactory().UserView();
         } else {
             showAlert(Alert.AlertType.ERROR, "Mistake", "Incorrect username or password.");
         }

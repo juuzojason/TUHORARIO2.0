@@ -15,6 +15,5 @@ public class UserMenuController extends VBox implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
     }
 }

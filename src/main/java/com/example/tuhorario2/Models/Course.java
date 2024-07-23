@@ -1,5 +1,7 @@
 package com.example.tuhorario2.Models;
 
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,10 @@ public class Course implements CardObject {
         this.Color = color;
         this.name = name;
         this.choiceOptions = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -74,16 +80,8 @@ public class Course implements CardObject {
     }
 
 
-    @Override
-    public void read(String json) {
-    }
-
-    @Override
-    public void createCard() {
-
-    }
-    @Override
-    public void updateCard(){
+    public int getUid() {
+        return uid;
     }
 
     @Override
@@ -98,4 +96,47 @@ public class Course implements CardObject {
 
     }
 
+
+
+    //TODO create this method like in Group
+    @Override
+    public void createCard() {
+    }
+
+
+    //TODO recreate this method like in Group
+    @Override
+    public Pane getCard() {
+        return null;
+    }
+
+
+    //this function copies this course and returns the object
+    @Override
+    public Course copy() {
+        Course c = new Course(Color,name);
+        c.setUID(Model.getInstance().getUser().getId());
+        return c;
+    }
+
+    private void setUID(int id) {
+        this.uid = id;
+    }
+
+
+    //TODO exactly how it is in Group
+    @Override
+    public void delete() {
+
+    }
+
+    @Override
+    public void readFormat() {
+
+    }
+
+    @Override
+    public String writeFormat() {
+        return "";
+    }
 }

@@ -1,10 +1,12 @@
 package com.example.tuhorario2.Views;
 
 import com.example.tuhorario2.Controllers.GeneralTitleController;
+import com.example.tuhorario2.Controllers.User.UserEditingController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -15,26 +17,34 @@ import java.util.Objects;
 public class ViewFactory {
     //Is the class that controls all the views that should be shown whenever a button is pressed
     Stage currStage;
+    private VBox userEditing = null;
+    private UserEditingController ueControl = null;
     //DashboardView
 
     public ViewFactory(){
-
     }
 
-    /*
-    public ___ getDashboardView(){
-        if (dashboard == null){
-            try {
-                Load DashBoardView
-            } catch {
-                get the exception
-            }
+    public void createUserEditing(){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/User/UserEditing.fxml"));
+            userEditing = fxmlLoader.load();
+            ueControl = fxmlLoader.getController();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
-    */
+
+    public VBox getUserEditing(){
+        if (userEditing == null) createUserEditing();
+        return this.userEditing;
+    }
+    public UserEditingController getUeControl(){
+        if (userEditing == null) createUserEditing();
+        return this.ueControl;
+    }
 
     public void UserView(){
-        createStage("/Fxml/Admin/User/User.fxml");
+        createStage("/Fxml/User/User.fxml");
     }
 
     public void LoginView(){
@@ -74,9 +84,6 @@ public class ViewFactory {
             throw new RuntimeException(e);
         }
     }
-
-
-
 
 
 

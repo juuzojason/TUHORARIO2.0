@@ -2,7 +2,7 @@ package com.example.tuhorario2.Models;
 
 import java.util.ArrayList;
 
-public class ChoiceOption implements CardObject {
+public class ChoiceOption {
 
     public static byte NormalDay = 0;
     public static byte NormalBeginHour = 0;
@@ -43,6 +43,15 @@ public class ChoiceOption implements CardObject {
         active = true;
 
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
 
     public boolean isActive(){
         return active;
@@ -171,19 +180,29 @@ public class ChoiceOption implements CardObject {
         return labelList.contains(label);
     }
 
+//
+//    @Override
+//    public void read(String json) {
+//        System.out.println("cre");
+//    }
+//
+//    @Override
+//    public void createCard() {
+//        System.out.println("cre");
+//    }
+//
+//    @Override
+//    public void updateCard() {
+//        System.out.println("cre");
+//    }
+//
+//    @Override
+//    public void copy() {
+//
+//    }
 
-    @Override
-    public void read(String json) {
-        System.out.println("cre");
-    }
 
-    @Override
-    public void createCard() {
-        System.out.println("cre");
-    }
-
-    @Override
-    public void updateCard() {
-        System.out.println("cre");
+    public void setId(int id) {
+        this.id = id;
     }
 }

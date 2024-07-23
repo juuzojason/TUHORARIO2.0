@@ -10,11 +10,14 @@ public class Model {
     private final ViewFactory viewFactory;
     private final DBDriver dbDriver;
 
-    private ArrayList<Group> groups;
+    private final ArrayList<Group> generalGroupList;
+    private Group selectedGroup = null;
+    private Course selectedCourse = null;
 
     private Model(){
         viewFactory = new ViewFactory();
         dbDriver = new DBDriver();
+        generalGroupList = dbDriver.getGroups();
     }
 
 
@@ -25,7 +28,19 @@ public class Model {
         return model;
     }
 
-    public void Register() {
+    //TODO: we have to register a new person, but we first have to make sure there is not another person with the same username
+    // - we also need to return if the registration was successful or not
+    public boolean Register() {
+        return false;
+    }
+
+
+    public Course getSelectedCourse() {
+        return selectedCourse;
+    }
+
+    public Group getSelectedGroup() {
+        return selectedGroup;
     }
 
     public ViewFactory getViewFactory() {
@@ -36,5 +51,54 @@ public class Model {
     public User loginAsUser(String username, String password) {
         this.user = dbDriver.loginAsUser(username,password);
         return this.user;
+    }
+
+    public void unselectCourse(){
+        this.selectedCourse = null;
+    }
+
+    public void unselectGroup(){
+        unselectCourse();
+        this.selectedGroup = null;
+    }
+
+
+    //TODO check this functionality
+    public void selectGroup(Group g){
+        if (!generalGroupList.contains(g)) return;
+        this.selectedGroup = g;
+        viewFactory.getUeControl().generateCards();
+    }
+
+    public void selectCourse(Course c){
+        if (selectedGroup == null) return;
+        if (!selectedGroup.getCourses().contains(c)) return;
+        this.selectedCourse = c;
+        viewFactory.getUeControl().generateCards();
+    }
+
+    //TODO logout should:
+    // - set user null
+    // - change view to login
+    // - delete all Cards
+    public void LogOut(){
+
+    }
+
+
+    public User getUser(){
+        return this.user;
+    }
+
+    public DBDriver getDbDriver() {
+        return dbDriver;
+    }
+
+    public void deleteGroup(Group group) {
+        this.generalGroupList.remove(group);
+    }
+
+    public ArrayList<Group> getGeneralGroupList() {
+        return generalGroupList;
     }
 }

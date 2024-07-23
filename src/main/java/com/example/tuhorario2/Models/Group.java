@@ -1,20 +1,27 @@
 package com.example.tuhorario2.Models;
 
+import com.example.tuhorario2.Controllers.User.GroupCardController;
+import com.example.tuhorario2.Controllers.User.UserController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Group implements CardObject {
 
     //the id used to update and delete
-    private int id;
+    private int id = -1;
     private int uid;
     private String color = "#000000";
     private String name;
     private byte semester;
 
 
-    //private GroupCardController card;
+    private GroupCardController cardController;
+    private Pane card;
 
-    private ArrayList<Course> courses;
+    private ArrayList<Course> courses = new ArrayList<>();
 
     public Group(int id,int uid, String color, String name, byte semester){
         this.id = id;
@@ -71,6 +78,9 @@ public class Group implements CardObject {
         return courses.size();
     }
 
+    public ArrayList<Course> getCourses() {
+        return this.courses;
+    }
 
 //    // Finds all options that have a specific day in their dayList ;)
 //    public List<ChoiceOption> findOptionsByDay(byte day) {
@@ -121,22 +131,76 @@ public class Group implements CardObject {
         return schedules;
     }
 
-    @Override
-    public void read(String json) {
 
+
+    public Pane getCard(){
+        return this.card;
     }
+
 
     @Override
     public void createCard() {
+        if (card == null){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/User/GroupCard.fxml"));
+                card = fxmlLoader.load();
+                this.cardController = fxmlLoader.getController();
+                this.cardController.setObject(this);
+                this.cardController.Update();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+
+    //TODO copy must create an exact copy of this in the database
+    @Override
+    public Group copy() {
+        Group g = new Group(color,name,semester);
+        g.setUID(Model.getInstance().getUser().getId());
+        return g;
+    }
+    public int getuserid(){
+        return this.uid;
+    }
+
+    @Override
+    public void delete(){
+        Model.getInstance().deleteGroup(this);
+    }
+
+
+
+    @Override
+    public void readFormat() {
 
     }
 
     @Override
-    public void updateCard() {
-
+    public String writeFormat() {
+        return "";
     }
+
 
     public String getColor() {
         return this.color;
     }
+
+    public void setUID(int uid){
+        this.uid = uid;
+    }
+
+    public void setColor(String s) {
+        this.color = s;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }
+

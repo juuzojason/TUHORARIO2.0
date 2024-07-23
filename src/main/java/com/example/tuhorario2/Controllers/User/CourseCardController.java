@@ -23,13 +23,34 @@ public class CourseCardController implements Initializable, Card<Course> {
 
     }
 
+
     @Override
-    public void connect(Course connector) {
+    public void setObject(Course object) {
 
     }
 
     @Override
-    public void updateVisual() {
+    public void edit() {
 
+    }
+
+    @Override
+    public void Update() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
+
+    @Override
+    public void copy() {
+
+    }
+
+    @Override
+    public Pane getPane() {
+        return null;
     }
 }
