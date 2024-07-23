@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
 public class LoginController implements Initializable {
 
 
+
+    @FXML
+    public Label errorLabel;
     public TextField txtuser;
     public PasswordField txtpass;
     public Button loginbtn;
@@ -51,22 +54,26 @@ public class LoginController implements Initializable {
 
 
     //TODO change the alert so instead of being a popup is a red label telling you what is wrong
+    //DONE
     private void handleLogin() {
         String username = txtuser.getText();
         String password = txtpass.getText();
 
+        // Clear the previous error message
+        errorLabel.setText("");
+
         if (username.isEmpty() || password.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Mistake", "All fields must be completed.");
+            errorLabel.setText("All fields must be completed.");
             return;
         }
 
         User user = Model.getInstance().loginAsUser(username, password);
 
         if (user != null) {
-            System.out.println("Login successful.   User ID:" + user.getId());
+            System.out.println("Login successful. User ID:" + user.getId());
             Model.getInstance().getViewFactory().UserView();
         } else {
-            showAlert(Alert.AlertType.ERROR, "Mistake", "Incorrect username or password.");
+            errorLabel.setText("Incorrect username or password.");
         }
     }
 

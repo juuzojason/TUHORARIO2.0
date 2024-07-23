@@ -156,7 +156,7 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         return this.content;
     }
 
-    //TODO create another case when op is null
+
     @Override
     public void setObject(ChoiceOption op) {
 
@@ -201,9 +201,25 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         return newer;
     }
 
-    //TODO complete this method so it verifies if the option is valid
+
     @Override
     public boolean IsEverythingValid() {
-        return false;
+        // Check that the lists are not empty and that the labels are not null or empty
+        if (LabelControllerList == null || LabelControllerList.isEmpty() ||
+                DayControllerList == null || DayControllerList.isEmpty() ||
+                LabelControllerList.stream().anyMatch(c -> c.getText() == null || c.getText().trim().isEmpty())) {
+            return false;
+        }
+
+        // Check that the days have valid hours
+        return DayControllerList.stream().allMatch(e -> {
+            Byte bh = e.getBeginHour(), eh = e.getEndHour();
+            return bh != null && eh != null
+                    && bh >= 0 && bh < 24
+                    && eh >= 0 && eh < 24
+                    && bh < eh;
+        });
     }
+
+
 }
