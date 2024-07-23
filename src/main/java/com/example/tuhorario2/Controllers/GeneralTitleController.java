@@ -29,7 +29,7 @@ public class GeneralTitleController implements Initializable {
         MiniButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                st.setMaximized(false);
+                st.setIconified(true);
             }
         });
 

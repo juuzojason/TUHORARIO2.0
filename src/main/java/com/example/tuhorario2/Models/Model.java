@@ -11,6 +11,9 @@ public class Model {
     private final DBDriver dbDriver;
 
     private final ArrayList<Group> generalGroupList;
+    private Group selectedGroup = null;
+    private Course selectedCourse = null;
+
     private Model(){
         viewFactory = new ViewFactory();
         dbDriver = new DBDriver();
@@ -32,6 +35,13 @@ public class Model {
     }
 
 
+    public Course getSelectedCourse() {
+        return selectedCourse;
+    }
+
+    public Group getSelectedGroup() {
+        return selectedGroup;
+    }
 
     public ViewFactory getViewFactory() {
         return viewFactory;
@@ -41,6 +51,30 @@ public class Model {
     public User loginAsUser(String username, String password) {
         this.user = dbDriver.loginAsUser(username,password);
         return this.user;
+    }
+
+    public void unselectCourse(){
+        this.selectedCourse = null;
+    }
+
+    public void unselectGroup(){
+        unselectCourse();
+        this.selectedGroup = null;
+    }
+
+
+    //TODO check this functionality
+    public void selectGroup(Group g){
+        if (!generalGroupList.contains(g)) return;
+        this.selectedGroup = g;
+        viewFactory.getUeControl().generateCards();
+    }
+
+    public void selectCourse(Course c){
+        if (selectedGroup == null) return;
+        if (!selectedGroup.getCourses().contains(c)) return;
+        this.selectedCourse = c;
+        viewFactory.getUeControl().generateCards();
     }
 
     //TODO logout should:

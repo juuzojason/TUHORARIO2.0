@@ -88,10 +88,10 @@ public class GroupCardController extends Pane implements Initializable, Card<Gro
     // - create function for Hovering
     // - create function for unHovering
     public void Hovering(){
-        ColorPaneDec.setPrefWidth(ColorPaneDec.getWidth() + 15);
+        ColorPaneDec.setPrefWidth(ColorPaneDec.getWidth() + 9);
     }
     public void unHovering(){
-        ColorPaneDec.setPrefWidth(ColorPaneDec.getWidth() - 15);
+        ColorPaneDec.setPrefWidth(ColorPaneDec.getWidth() - 9);
     }
 
     //TODO change when is not owner:

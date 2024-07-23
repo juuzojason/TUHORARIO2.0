@@ -97,23 +97,46 @@ public class Course implements CardObject {
     }
 
 
+
+    //TODO create this method like in Group
     @Override
     public void createCard() {
-
     }
 
+
+    //TODO recreate this method like in Group
     @Override
     public Pane getCard() {
         return null;
     }
 
+
+    //this function copies this course and returns the object
     @Override
-    public void copy() {
+    public Course copy() {
+        Course c = new Course(Color,name);
+        c.setUID(Model.getInstance().getUser().getId());
+        return c;
+    }
+
+    private void setUID(int id) {
+        this.uid = id;
+    }
+
+
+    //TODO exactly how it is in Group
+    @Override
+    public void delete() {
 
     }
 
     @Override
-    public void delete() {
+    public void readFormat() {
 
+    }
+
+    @Override
+    public String writeFormat() {
+        return "";
     }
 }

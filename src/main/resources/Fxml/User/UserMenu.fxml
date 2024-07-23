@@ -18,8 +18,8 @@
                 <Insets top="20.0" />
             </padding>
             <Button fx:id="GenerateButton" mnemonicParsing="false" text="Generate" />
-            <Button fx:id="FiltersButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Filters" />
             <Button fx:id="EditButton" layoutX="10.0" layoutY="35.0" mnemonicParsing="false" text="Editing" />
+         <Button fx:id="ThemesButton1" layoutX="41.0" layoutY="100.0" mnemonicParsing="false" text="Themes" />
             <Button fx:id="ThemesButton" layoutX="10.0" layoutY="60.0" mnemonicParsing="false" text="Themes" />
         </VBox>
       <Button fx:id="LogOutBtn" layoutX="23.0" layoutY="434.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Log Out" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="22.0" />

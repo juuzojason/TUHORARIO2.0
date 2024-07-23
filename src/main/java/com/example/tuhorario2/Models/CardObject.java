@@ -9,6 +9,10 @@ public interface CardObject {
 
     public void createCard();
     public Pane getCard();
-    public void copy();
+    public Object copy();
     public void delete();
+
+
+    public void readFormat();
+    public String writeFormat();
 }
