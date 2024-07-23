@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
     }
 
 
-    //TODO change the alert so instead of being a popup is a red label telling you what is wrong
+
     //DONE
     private void handleLogin() {
         String username = txtuser.getText();

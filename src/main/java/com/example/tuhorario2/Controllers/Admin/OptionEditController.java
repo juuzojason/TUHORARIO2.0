@@ -49,13 +49,13 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
     }
 
     @FXML
-    public void AddDayLister(){
+    public void AddDayLister() {
         if (DayVBox.getChildren().size() >= 4) disableAddButton();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/Fxml/Admin/Listers/OptionEditDayLister.fxml"));
             HBox DayLister = fxmlLoader.load();
-            DayVBox.getChildren().add(DayVBox.getChildren().size()-1,DayLister);
+            DayVBox.getChildren().add(DayVBox.getChildren().size() - 1, DayLister);
 
             OptionEditDayListerController DayController = fxmlLoader.getController();
             this.DayControllerList.add(DayController);
@@ -70,13 +70,13 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
     }
 
 
-    public void AddDayLister(Byte day, Byte bHour, Byte eHour){
+    public void AddDayLister(Byte day, Byte bHour, Byte eHour) {
         if (DayVBox.getChildren().size() >= 4) disableAddButton();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/Fxml/Admin/Listers/OptionEditDayLister.fxml"));
             HBox DayLister = fxmlLoader.load();
-            DayVBox.getChildren().add(DayVBox.getChildren().size()-1,DayLister);
+            DayVBox.getChildren().add(DayVBox.getChildren().size() - 1, DayLister);
 
             OptionEditDayListerController DayController = fxmlLoader.getController();
             this.DayControllerList.add(DayController);
@@ -121,34 +121,32 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
     }
 
 
-    private void disableAddButton(){
+    private void disableAddButton() {
         this.AddDayButton.setDisable(true);
     }
 
-    public void enableAddButton(){
+    public void enableAddButton() {
         this.AddDayButton.setDisable(false);
     }
 
 
-    private void disableLabelButton(){
+    private void disableLabelButton() {
         this.AddLabelButton.setDisable(true);
     }
 
-    public void enableLabelButton(){
+    public void enableLabelButton() {
         this.AddLabelButton.setDisable(false);
     }
 
-    public void removeLabelControllerList(OptionEditLabelListerController e){
+    public void removeLabelControllerList(OptionEditLabelListerController e) {
         this.LabelControllerList.remove(e);
         this.LabelFlowPane.getChildren().remove(e);
     }
 
-    public void removeDayControllerList(OptionEditDayListerController e){
+    public void removeDayControllerList(OptionEditDayListerController e) {
         this.DayControllerList.remove(e);
         this.DayVBox.getChildren().remove(e);
     }
-
-
 
 
     @Override
@@ -160,18 +158,18 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
     @Override
     public void setObject(ChoiceOption op) {
 
-        if (op == null){
+        if (op == null) {
             AddDayLister();
             return;
         }
 
-        for (Node d : LabelFlowPane.getChildren()){
+        for (Node d : LabelFlowPane.getChildren()) {
             LabelFlowPane.getChildren().remove(d);
         }
         LabelControllerList = new ArrayList<>();
 
         ArrayList<String> lblList = op.getLabelList();
-        for (String u : lblList){
+        for (String u : lblList) {
             this.AddLabelLister(u);
         }
 
@@ -180,7 +178,7 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
         for (int i = 0; i < dayList.size(); i++) {
             Byte bh = hoursList.get(i)[0]; //beginHour
             Byte eh = hoursList.get(i)[1]; //End Hour
-            this.AddDayLister(dayList.get(i),bh,eh);
+            this.AddDayLister(dayList.get(i), bh, eh);
         }
 
     }
@@ -204,21 +202,15 @@ public class OptionEditController implements Initializable, ObjectEditor<ChoiceO
 
     @Override
     public boolean IsEverythingValid() {
-        // Check that the lists are not empty and that the labels are not null or empty
-        if (LabelControllerList == null || LabelControllerList.isEmpty() ||
-                DayControllerList == null || DayControllerList.isEmpty() ||
+        if (DayControllerList == null || DayControllerList.isEmpty() ||
                 LabelControllerList.stream().anyMatch(c -> c.getText() == null || c.getText().trim().isEmpty())) {
             return false;
         }
 
-        // Check that the days have valid hours
-        return DayControllerList.stream().allMatch(e -> {
-            Byte bh = e.getBeginHour(), eh = e.getEndHour();
-            return bh != null && eh != null
-                    && bh >= 0 && bh < 24
-                    && eh >= 0 && eh < 24
-                    && bh < eh;
-        });
+        //Check Days doesn't cross
+
+
+        return true;
     }
 
 
