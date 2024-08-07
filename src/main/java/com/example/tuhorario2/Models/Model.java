@@ -30,8 +30,14 @@ public class Model {
 
     //TODO: we have to register a new person, but we first have to make sure there is not another person with the same username
     // - we also need to return if the registration was successful or not
-    public boolean Register() {
-        return false;
+    public boolean Register(String username, String password) {
+        if (dbDriver.userExists(username)){
+            return false;
+        }
+        dbDriver.registerUser(username,password);
+
+        loginAsUser(username,password);
+        return true;
     }
 
 
@@ -114,3 +120,4 @@ public class Model {
         selectedGroup.getCourses().remove(c);
     }
 }
+
