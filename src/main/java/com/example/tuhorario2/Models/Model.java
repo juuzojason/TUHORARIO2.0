@@ -30,8 +30,14 @@ public class Model {
 
     //TODO: we have to register a new person, but we first have to make sure there is not another person with the same username
     // - we also need to return if the registration was successful or not
-    public boolean Register() {
-        return false;
+    public boolean Register(String username, String password) {
+        if (dbDriver.userExists(username)){
+            return false;
+        }
+        dbDriver.registerUser(username,password);
+
+        loginAsUser(username,password);
+        return true;
     }
 
 
@@ -55,11 +61,13 @@ public class Model {
 
     public void unselectCourse(){
         this.selectedCourse = null;
+        viewFactory.getUeControl().generateCards();
     }
 
     public void unselectGroup(){
         unselectCourse();
         this.selectedGroup = null;
+        viewFactory.getUeControl().generateCards();
     }
 
 
@@ -100,5 +108,15 @@ public class Model {
 
     public ArrayList<Group> getGeneralGroupList() {
         return generalGroupList;
+    }
+
+    public void deleteOption(ChoiceOption choiceOption) {
+        if (selectedCourse == null) return;
+        selectedCourse.getChoiceOptions().remove(choiceOption);
+    }
+
+    public void deleteCourse(Course c){
+        if (selectedGroup == null) return;
+        selectedGroup.getCourses().remove(c);
     }
 }
