@@ -25,8 +25,6 @@ public class GroupCardController extends Pane implements Initializable, Card<Gro
     public Label UserLabel;
     public Label InfoLabel;
 
-    public FlowPane container;
-
 
     private Group object;
 
@@ -66,6 +64,12 @@ public class GroupCardController extends Pane implements Initializable, Card<Gro
             }
         });
 
+        Background.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                openGroup();
+            }
+        });
     }
 
     @Override
@@ -82,7 +86,7 @@ public class GroupCardController extends Pane implements Initializable, Card<Gro
     }
 
     //TODO function when clicking in the card
-
+    public void openGroup(){Model.getInstance().selectGroup(object);}
 
     //TODO fancy
     // - create function for Hovering
@@ -108,7 +112,7 @@ public class GroupCardController extends Pane implements Initializable, Card<Gro
     public void Update() {
         if (object == null) return;
         this.ColorPaneDec.setStyle("-fx-background-color: " + object.getColor().toUpperCase() + ";");
-        System.out.println(ColorPaneDec.getStyle());
+        //System.out.println(ColorPaneDec.getStyle());
         this.NameLabel.setText(object.getName());
         String utex = "Created By: " + (isUserOwner() ? "You" : "Other User");
         this.UserLabel.setText(utex);

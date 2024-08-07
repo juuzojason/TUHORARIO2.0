@@ -1,8 +1,13 @@
 package com.example.tuhorario2.Models;
 
+import com.example.tuhorario2.Controllers.User.CourseCardController;
+import com.example.tuhorario2.Controllers.User.GroupCardController;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Course implements CardObject {
@@ -16,8 +21,8 @@ public class Course implements CardObject {
     private List<ChoiceOption> choiceOptions;
 
 
-    //private CourseCardController card;
-
+    private CourseCardController cardController;
+    private Pane card;
 
     public Course(int id, int uid, String color, String name) {
         this.id = id;
@@ -101,13 +106,24 @@ public class Course implements CardObject {
     //TODO create this method like in Group
     @Override
     public void createCard() {
+        if (card == null){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/User/CourseCard.fxml"));
+                card = fxmlLoader.load();
+                this.cardController = fxmlLoader.getController();
+                this.cardController.setObject(this);
+                this.cardController.Update();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 
     //TODO recreate this method like in Group
     @Override
     public Pane getCard() {
-        return null;
+        return this.card;
     }
 
 
@@ -124,10 +140,28 @@ public class Course implements CardObject {
     }
 
 
+    //Obtains the amount of unique labels within all options
+    public int getLabelAmount(){
+        ArrayList<String> s = new ArrayList<>();
+        for (ChoiceOption c: getChoiceOptions()){
+            s.addAll(c.getLabelList());
+        }
+        HashMap<String, Integer> uniqueStrings = new HashMap<>();
+        int c = 0;
+        for (String a: s){
+            if (!uniqueStrings.containsKey(a)){
+                uniqueStrings.put(a,1);
+                c++;
+            }
+
+        }
+        return c;
+    }
+
     //TODO exactly how it is in Group
     @Override
     public void delete() {
-
+        Model.getInstance().deleteCourse(this);
     }
 
     @Override

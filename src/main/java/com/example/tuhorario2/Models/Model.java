@@ -61,11 +61,13 @@ public class Model {
 
     public void unselectCourse(){
         this.selectedCourse = null;
+        viewFactory.getUeControl().generateCards();
     }
 
     public void unselectGroup(){
         unselectCourse();
         this.selectedGroup = null;
+        viewFactory.getUeControl().generateCards();
     }
 
 
@@ -106,5 +108,15 @@ public class Model {
 
     public ArrayList<Group> getGeneralGroupList() {
         return generalGroupList;
+    }
+
+    public void deleteOption(ChoiceOption choiceOption) {
+        if (selectedCourse == null) return;
+        selectedCourse.getChoiceOptions().remove(choiceOption);
+    }
+
+    public void deleteCourse(Course c){
+        if (selectedGroup == null) return;
+        selectedGroup.getCourses().remove(c);
     }
 }

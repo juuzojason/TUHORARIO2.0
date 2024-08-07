@@ -106,8 +106,9 @@ public class DBDriver {
             Statement st = c.createStatement();
             ResultSet result = st.executeQuery("SELECT * FROM Options WHERE CourseID = " + courseID + ";");
             while (result.next()){
-                int id = result.getInt("CourseID");
+                int id = result.getInt("OptionID");
                 ChoiceOption g = new ChoiceOption(id,UserID);
+                System.out.println("HORAS" + getHours(id).toString());
                 g.setHourList(getHours(id));
                 g.setDayList(getDays(id));
                 g.setLabelList(getLabels(id));
@@ -162,7 +163,7 @@ public class DBDriver {
         ArrayList<String> s = new ArrayList<>();
         try{
             Statement st = c.createStatement();
-            ResultSet result = st.executeQuery("SELECT * FROM LABELS WHERE OptionID = " + optionID + ";");
+            ResultSet result = st.executeQuery("SELECT * FROM LABELS WHERE OptionIDd = " + optionID + ";");
             while (result.next()){
                 String bh = result.getString("LabelText");
                 s.add(bh);
@@ -205,13 +206,14 @@ public class DBDriver {
     }
 
 
-    public boolean insertCourse(Course course, int GroupID) {
+    public synchronized boolean createCourse(Course course, int GroupID) {
         //Checks the ownership
-        if (course.getUid() != Model.getInstance().getUser().getId())  return false;
+        if (Model.getInstance().getSelectedGroup().getuserid() != Model.getInstance().getUser().getId())  return false;
 
 
-        String sql = "INSERT INTO Courses (CourseName, CourseColor, GroupID) VALUES (?, ?, ?)";
-        try (PreparedStatement pstmt = c.prepareStatement(sql)) {
+        String sql = "INSERT INTO Courses (CourseName, CourseColor, GroupID) VALUES (?, ?, ?);";
+        try {
+            PreparedStatement pstmt = c.prepareStatement(sql);
             pstmt.setInt(3, GroupID);
             pstmt.setString(2, course.getColor());
             pstmt.setString(1, course.getName());
@@ -223,9 +225,9 @@ public class DBDriver {
     }
 
 
-    public boolean updateGroup( Group g) {
+    public void updateGroup(Group g) {
         //Checks the ownership
-        if (g.getuserid() != Model.getInstance().getUser().getId())  return false;
+        if (g.getuserid() != Model.getInstance().getUser().getId())  return;
 
         int groupID = g.getId();
         String newColor = g.getColor();
@@ -241,19 +243,17 @@ public class DBDriver {
             Update.setInt(3, newSemester);
             Update.setInt(4, groupID);
             int affectedRows = Update.executeUpdate();
-            return affectedRows > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
 
 
-    public boolean deleteGroup(Group group) {
+    public void deleteGroup(Group group) {
         //Checks the ownership
-        if (group.getuserid() != Model.getInstance().getUser().getId())  return false;
+        if (group.getuserid() != Model.getInstance().getUser().getId())  return;
 
 
         String deleteGroupSQL = "DELETE FROM Groups WHERE GroupID = ?";
@@ -272,55 +272,40 @@ public class DBDriver {
 
             DeleteGroup.setInt(1, group.getId());
             int affectedRows = DeleteGroup.executeUpdate();
-            return affectedRows > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
 
 
-    public boolean updateCourse(ChoiceOption choiceOption) {
-        if(choiceOption.getUid() != Model.getInstance().getUser().getId()){
-            return false;
-        }
-        String deleteSQL = "DELETE FROM Days WHERE OptionID = ?; " + "DELETE FROM Labels WHERE OptionID = ?";
-        String insertDaySQL = "INSERT INTO Days (OptionID, Day) VALUES (?, ?)";
-        String insertLabelSQL = "INSERT INTO Labels (OptionID, LabelText) VALUES (?, ?)";
+    public void updateCourse(Course course) {
+        if (course.getUid() != Model.getInstance().getUser().getId())  return;
 
-        int optionID = choiceOption.getId();
-        int userID = choiceOption.getUid();
+        int courseID = course.getId();
+        String newColor = course.getColor();
+        String newName = course.getName();
 
-        try (PreparedStatement deleteStmt = c.prepareStatement(deleteSQL);
-             PreparedStatement insertDayStmt = c.prepareStatement(insertDaySQL);
-             PreparedStatement insertLabelStmt = c.prepareStatement(insertLabelSQL)) {
+        String updateGroupSQL = "UPDATE COURSES SET CourseColor = ?, CourseName = ? WHERE CourseID = ?";
 
-            // Delete old entries
-            deleteStmt.setInt(1, optionID);
-            deleteStmt.setInt(2, optionID);
-            deleteStmt.setInt(3, optionID);
-            deleteStmt.executeUpdate();
+        try (PreparedStatement Update = c.prepareStatement(updateGroupSQL)) {
+            // Update the group
+            Update.setString(1, newColor);
+            Update.setString(2, newName);
+            Update.setInt(3, courseID);
+            int affectedRows = Update.executeUpdate();
 
-            // Insert new days
-            insertDays(choiceOption);
-
-
-            // Insert new label
-            insertLabels(choiceOption);
-
-            return true;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
-    public boolean deleteCourse(int courseID, int userID) {
-        String checkOwnershipSQL = "SELECT * FROM Courses WHERE CourseID = ? AND UserID = ?";
+    public void deleteCourse(Course course) {
+        String checkOwnershipSQL = "SELECT * FROM Courses WHERE CourseID = ?";
         String deleteCourseSQL = "DELETE FROM Courses WHERE CourseID = ?";
         String deleteOptionsSQL = "DELETE FROM Options WHERE CourseID = ?";
+        int courseID = course.getId();
 
         try (PreparedStatement courseCheck = c.prepareStatement(checkOwnershipSQL);
              PreparedStatement DeleteCourse = c.prepareStatement(deleteCourseSQL);
@@ -328,10 +313,9 @@ public class DBDriver {
 
             // Check if the user is the owner
             courseCheck.setInt(1, courseID);
-            courseCheck.setInt(2, userID);
             try (ResultSet rs = courseCheck.executeQuery()) {
                 if (!rs.next()) {
-                    return false; // User is not the owner
+                    return; // User is not the owner
                 }
             }
 
@@ -342,44 +326,25 @@ public class DBDriver {
             // Delete the course
             DeleteCourse.setInt(1, courseID);
             int affectedRows = DeleteCourse.executeUpdate();
-            return affectedRows > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
 
-
     public boolean updateOption(ChoiceOption choiceOption) {
         //Checks the ownership
-        if (choiceOption.getUid() != Model.getInstance().getUser().getId())  return false;
+        if (choiceOption.getUid() != Model.getInstance().getUser().getId()) return false;
 
-
-        String insertDaySQL = "INSERT INTO Days (OptionID, Day) VALUES (?, ?)";
-        String insertHourSQL = "INSERT INTO Hours (OptionID, DayStartT, DayEndT) VALUES (?, ?, ?)";
-        String insertLabelSQL = "INSERT INTO Labels (OptionID, LabelText) VALUES (?, ?)";
 
         int optionID = choiceOption.getId();
+        deleteDays(choiceOption);
+        deleteLabels(choiceOption);
 
-        try (
-                PreparedStatement insertDayStmt = c.prepareStatement(insertDaySQL);
-                PreparedStatement insertHourStmt = c.prepareStatement(insertHourSQL);
-                PreparedStatement insertLabelStmt = c.prepareStatement(insertLabelSQL)
-        ) {
-
-            deleteDays(choiceOption);
-            deleteLabels(choiceOption);
-
-            insertDays(choiceOption);
-            insertLabels(choiceOption);
-
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+        insertDays(choiceOption);
+        insertLabels(choiceOption);
+        return true;
     }
 
 
@@ -388,22 +353,23 @@ public class DBDriver {
         //Checks the ownership
         if (co.getUid() != Model.getInstance().getUser().getId())  return false;
 
-        String deleteOptionSQL = "DELETE FROM Options WHERE OptionID = " + co.getId();
+        String deleteOptionSQL = "DELETE FROM Options WHERE OptionID = " + co.getId() +";";
 
         try (PreparedStatement DeleteOption = c.prepareStatement(deleteOptionSQL)) {
             deleteLabels(co);
             deleteDays(co);
-
-            return DeleteOption.executeUpdate() > 0;
+            System.out.println(deleteOptionSQL);
+            DeleteOption.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     public boolean deleteLabels(ChoiceOption co){
-        String deleteLabelsSQL = "DELETE FROM Labels WHERE OptionID = " + co.getId();
-        try (PreparedStatement DeleteLabels = c.prepareStatement(deleteLabelsSQL);) {
+        String deleteLabelsSQL = "DELETE FROM Labels WHERE OptionIDd = " + co.getId() + ";";
+        try {
+            PreparedStatement DeleteLabels = c.prepareStatement(deleteLabelsSQL);
             DeleteLabels.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -414,7 +380,7 @@ public class DBDriver {
 
 
     public boolean deleteDays(ChoiceOption co){
-        String deleteLabelsSQL = "DELETE FROM Days WHERE OptionID = " + co.getId();
+        String deleteLabelsSQL = "DELETE FROM Days WHERE OptionID = " + co.getId() + ";";
         try (PreparedStatement DeleteLabels = c.prepareStatement(deleteLabelsSQL);) {
             DeleteLabels.executeUpdate();
             return true;
@@ -426,7 +392,7 @@ public class DBDriver {
 
 
 
-    public synchronized boolean insertOption(ChoiceOption choiceOption, int CourseID){
+    public synchronized boolean createOption(ChoiceOption choiceOption, int CourseID){
         String insertLabel = "INSERT INTO Options (CourseID) VALUES("+CourseID+")";
         int OpID = 0;
 
@@ -441,7 +407,7 @@ public class DBDriver {
 
             //updates the option_object's ID
             statement = c.createStatement();
-            result = statement.executeQuery("SELECT MAX(OptionID) AS op from Options");
+            result = statement.executeQuery("SELECT MAX(OptionID) AS op FROM Options;");
             OpID = Integer.parseInt(result.getString("op"));
             choiceOption.setId(OpID);
 
@@ -459,13 +425,12 @@ public class DBDriver {
     public synchronized boolean insertLabels(ChoiceOption co){
         int OptionID = co.getId();
         ArrayList<String> labels = co.getLabelList();
-        String insertLabel = "INSERT INTO LABELS (optionID, LabelText) VALUES(?,?)";
+        String insertLabel = "INSERT INTO LABELS (optionIDd, LabelText) VALUES("+OptionID;
 
         try {
             for (String label : labels) {
-                PreparedStatement insertLabelStmt = c.prepareStatement(insertLabel);
-                insertLabelStmt.setInt(1,OptionID);
-                insertLabelStmt.setString(2, label);
+                PreparedStatement insertLabelStmt = c.prepareStatement(insertLabel + ",'"+label+"');");
+                System.out.println(insertLabel + ",'"+label+"');");
                 insertLabelStmt.addBatch();
                 insertLabelStmt.executeBatch();
             }
@@ -484,7 +449,7 @@ public class DBDriver {
         try {
             for (int i = 0; i < days.size(); i++) {
                 String insertLabel = "INSERT INTO DAYS (optionID, Day, DayStartT,DayEndT) VALUES("+OptionID+","+days.get(i)+
-                        ","+hours.get(i)[0]+","+hours.get(i)[1]+")";
+                        ","+hours.get(i)[0]+","+hours.get(i)[1]+");";
                 PreparedStatement insertLabelStmt = c.prepareStatement(insertLabel);
                 insertLabelStmt.addBatch();
                 insertLabelStmt.executeBatch();

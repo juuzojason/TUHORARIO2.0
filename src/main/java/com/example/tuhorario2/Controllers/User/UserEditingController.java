@@ -49,6 +49,20 @@ public class UserEditingController extends VBox implements Initializable {
             }
         });
 
+        BackButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Back();
+            }
+        });
+
+        searchButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                generateCards();
+            }
+        });
+
         generateCards();
     }
 
@@ -63,37 +77,43 @@ public class UserEditingController extends VBox implements Initializable {
     }
 
 
-    //TODO fix choiceOption card creation
     public void generateCards(){
         removeCards();
 
         Model ins = Model.getInstance();
         if (ins.getSelectedCourse() != null){
             for (ChoiceOption o : ins.getSelectedCourse().getChoiceOptions()){
-                //o.createCard();
-                //
-                //
+                o.createCard();
+                CardsContainer.getChildren().add(o.getCard());
             }
         }else if (ins.getSelectedGroup() != null){
             for (Course c : ins.getSelectedGroup().getCourses()){
+                //TODO replace with search function: it has to check if the name is similar to the searchBar
+                //if (!(c.getName().)) continue;
                 c.createCard();
                 CardsContainer.getChildren().add(c.getCard());
             }
         } else {
             for (Group g : ins.getGeneralGroupList()){
+                //TODO replace with search function: it has to check if the name is similar to the searchBar
+                //if (!(g.getName().)) continue;
                 g.createCard();
                 CardsContainer.getChildren().add(g.getCard());
             }
         }
+        UpdateInfo();
     }
 
     public void removeCards(){
-        for (Node n : CardsContainer.getChildren()) CardsContainer.getChildren().remove(n);
+        for (int i = CardsContainer.getChildren().size()-1; i >= 0 ; i--){
+            CardsContainer.getChildren().remove(i);
+        }
     }
 
 
     public void createGroup(){
         Group g = new CharlyDialogs().GroupPane(null);
+        if (g == null) return;
         Model.getInstance().getGeneralGroupList().add(g);
         g.createCard();
         CardsContainer.getChildren().add(g.getCard());
@@ -102,9 +122,26 @@ public class UserEditingController extends VBox implements Initializable {
     }
 
     //TODO create Option
-    public void createOption(){}
+    public void createOption(){
+        ChoiceOption c = new CharlyDialogs().OptionPane(null);
+        if (c == null) return;
+        Course selected = Model.getInstance().getSelectedCourse();
+        selected.getChoiceOptions().add(c);
+        c.createCard();
+        CardsContainer.getChildren().add(c.getCard());
+        boolean in = Model.getInstance().getDbDriver().createOption(c, selected.getId());
+    }
+
     //TODO create Course
-    public void createCourse(){}
+    public void createCourse(){
+        Course g = new CharlyDialogs().CoursePane(null);
+        if (g == null) return;
+        Group selected = Model.getInstance().getSelectedGroup();
+        selected.getCourses().add(g);
+        g.createCard();
+        CardsContainer.getChildren().add(g.getCard());
+        boolean in = Model.getInstance().getDbDriver().createCourse(g, selected.getId());
+    }
 
 
     public void UpdateInfo(){
@@ -123,9 +160,9 @@ public class UserEditingController extends VBox implements Initializable {
 
         //sets the quantity of the objects
         String quantity = (ins.getSelectedGroup() == null) ? " Groups" : "";
-        quantity += (ins.getSelectedGroup() == null) ? "" : " Courses";
-        quantity += (ins.getSelectedCourse() == null) ? "" : " Options";
-        CardsLabel.setText(Model.getInstance().getGeneralGroupList().size() + quantity);
+        quantity = (ins.getSelectedGroup() != null && ins.getSelectedCourse() == null) ? " Courses" : quantity;
+        quantity = (ins.getSelectedCourse() == null) ? quantity : " Options";
+        CardsLabel.setText(CardsContainer.getChildren().size() + quantity);
     }
 
 
