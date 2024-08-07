@@ -43,7 +43,7 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        if (!Model.getInstance().Register()){
+        if (!Model.getInstance().Register(username,password)){
             showAlert(Alert.AlertType.ERROR, "Error", "There is already a user with username: " + username);
             return;
         }

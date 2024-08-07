@@ -154,13 +154,15 @@ public class Group implements CardObject {
     }
 
 
-    //TODO copy must create an exact copy of this in the database
+    //copy must create an exact copy of this in the database
     @Override
     public Group copy() {
         Group g = new Group(color,name,semester);
         g.setUID(Model.getInstance().getUser().getId());
         return g;
     }
+
+
     public int getuserid(){
         return this.uid;
     }
@@ -174,7 +176,6 @@ public class Group implements CardObject {
 
     @Override
     public void readFormat() {
-
     }
 
     @Override

@@ -120,3 +120,4 @@ public class Model {
         selectedGroup.getCourses().remove(c);
     }
 }
+

@@ -7,28 +7,20 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="180.0"
-      xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.tuhorario2.Controllers.User.OptionCardController">
+<VBox fx:id="BackGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="180.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tuhorario2.Controllers.User.OptionCardController">
     <Pane fx:id="InteractablePane" prefHeight="35.0" prefWidth="180.0" style="-fx-background-color: #E0E0E0;">
-        <Button fx:id="DeleteButton" layoutX="151.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0"
-                prefWidth="25.0"/>
-        <Label fx:id="LabelLabel" contentDisplay="CENTER" layoutX="14.0" layoutY="9.0" maxHeight="18.0"
-               maxWidth="80.0" prefHeight="18.0" style="-fx-background-color: #505050; -fx-background-radius: 5;"
-               text=" GoodTeacher " textFill="WHITE"/>
-        <Label fx:id="NumLabel" layoutX="100.0" layoutY="9.0" text="2..."/>
-        <Button fx:id="EditButton" layoutX="124.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0"
-                prefWidth="25.0"/>
+        <Button fx:id="DeleteButton" layoutX="151.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
+        <Label fx:id="LabelLabel" contentDisplay="CENTER" layoutX="14.0" layoutY="9.0" maxHeight="18.0" maxWidth="80.0" prefHeight="18.0" style="-fx-background-color: #505050; -fx-background-radius: 5;" text=" GoodTeacher " textFill="WHITE" />
+        <Label fx:id="NumLabel" layoutX="100.0" layoutY="9.0" text="2..." />
+        <Button fx:id="EditButton" layoutX="124.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" />
     </Pane>
-    <HBox fx:id="DayPane" alignment="CENTER" prefHeight="25.0" prefWidth="180.0" spacing="10.0"
-          style="-fx-background-color: #F0F0F0; -fx-border-color: #A0A0A0;">
-        <Label prefHeight="16.0" text="Wednesday"/>
+    <HBox fx:id="DayPane" alignment="CENTER" prefHeight="25.0" prefWidth="180.0" spacing="10.0" style="-fx-background-color: #F0F0F0; -fx-border-color: #A0A0A0;">
+        <Label prefHeight="16.0" text="Wednesday" />
         <Label prefHeight="16.0" text="10am - 12am">
             <font>
-                <Font size="10.0"/>
+                <Font size="10.0" />
             </font>
         </Label>
-        <Pane maxHeight="-Infinity" prefHeight="15.0" prefWidth="15.0"
-              style="-fx-background-color: #FDE89D; -fx-background-radius: 10;"/>
+        <Pane maxHeight="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: #FDE89D; -fx-background-radius: 10;" />
     </HBox>
 </VBox>

@@ -1,8 +1,13 @@
 package com.example.tuhorario2.Models;
 
+import com.example.tuhorario2.Controllers.User.OptionCardController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
-public class ChoiceOption {
+public class ChoiceOption implements CardObject{
 
     public static byte NormalDay = 0;
     public static byte NormalBeginHour = 0;
@@ -12,7 +17,7 @@ public class ChoiceOption {
     private boolean active;
 
     //the id used to update and delete
-    private int id;
+    private int id = -1;
     private int uid;
     //List of labels
     private ArrayList<String> labelList;
@@ -22,7 +27,8 @@ public class ChoiceOption {
     private ArrayList<byte[]> hourList;
 
 
-    //private OptionCardController card;
+    private Pane card;
+    private OptionCardController cardController;
 
 
 
@@ -87,14 +93,14 @@ public class ChoiceOption {
 
 
 
-    //DONETODO method add day
+    //Method add day
     //Do: adds the day and the begin-end hour
     public void addDay(byte day, byte bhour, byte ehour){
         dayList.add(day);
         hourList.add(new byte[]{bhour,ehour});
     }
 
-    //DONETODO method remove day
+    //Method remove day
     //Do: remove both the day and the begin-end hour by the index in the array
     public void removeDay(int i){
         dayList.remove(i);
@@ -108,7 +114,7 @@ public class ChoiceOption {
 
 
 
-    //DONETODO method equals
+    //Method equals
     //returns: true or false, does not compare labels
     @Override
     public boolean equals(Object obj) {
@@ -120,7 +126,7 @@ public class ChoiceOption {
         return dayList.equals(that.dayList) && hourList.equals(that.hourList);
     }
 
-    //DONETODO method crosses with choiceOption
+    //Crosses with choiceOption
     //Do: when a day and a begin-end hour crosses or matches with any of this's
     //Returns: true or false, matches or not
     public boolean crossesWith(ChoiceOption other) {
@@ -147,7 +153,6 @@ public class ChoiceOption {
 
 
 
-    //DONETODO Encript method
     public String encript() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < dayList.size(); i++) {
@@ -159,7 +164,6 @@ public class ChoiceOption {
 
 
 
-    //DONETODO List of dayOptions in a string kind of a toString
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -175,34 +179,56 @@ public class ChoiceOption {
 
 
 
-    //DONETODO hasLabel tells you if this has a label
+    //TODO hasLabel tells you if this has a label similar to the text, has to be changed
     public boolean hasLabel(String label) {
         return labelList.contains(label);
     }
 
-//
-//    @Override
-//    public void read(String json) {
-//        System.out.println("cre");
-//    }
-//
-//    @Override
-//    public void createCard() {
-//        System.out.println("cre");
-//    }
-//
-//    @Override
-//    public void updateCard() {
-//        System.out.println("cre");
-//    }
-//
-//    @Override
-//    public void copy() {
-//
-//    }
-
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public void createCard() {
+        if (card == null){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Fxml/User/OptionCard.fxml"));
+                card = fxmlLoader.load();
+                this.cardController = fxmlLoader.getController();
+                this.cardController.setObject(this);
+                this.cardController.Update();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    public Pane getCard() {
+        return card;
+    }
+
+    @Override
+    public ChoiceOption copy() {
+        ChoiceOption cop = new ChoiceOption();
+        cop.setHourList((ArrayList<byte[]>) hourList.clone());
+        cop.setDayList((ArrayList<Byte>) dayList.clone());
+        cop.setLabelList((ArrayList<String>) labelList.clone());
+        return cop;
+    }
+
+    @Override
+    public void delete() {
+        Model.getInstance().deleteOption(this);
+    }
+
+    @Override
+    public void readFormat() {
+    }
+
+    @Override
+    public String writeFormat() {
+        return "";
     }
 }
