@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="210.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox fx:id="WeekDayHBox" alignment="CENTER" layoutY="5.0" prefHeight="30.0" prefWidth="210.0" spacing="12.0">
+         <children>
+            <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #CEE741; -fx-background-radius: 10;" text="M" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="105.0" layoutY="15.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #CEE741; -fx-background-radius: 10;" text="T" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="125.0" layoutY="15.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #CEE741; -fx-background-radius: 10;" text="W" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="145.0" layoutY="15.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #CEE741; -fx-background-radius: 10;" text="T" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="165.0" layoutY="15.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #CEE741; -fx-background-radius: 10;" text="F" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="165.0" layoutY="15.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #CEE741; -fx-background-radius: 10;" text="S" textFill="WHITE" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="5.0" layoutY="35.0" prefHeight="30.0" prefWidth="200.0" spacing="10.0">
+         <children>
+            <Label fx:id="BeginHourLabel" text="8:00am" />
+            <Pane fx:id="BSkyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #FDE89D; -fx-background-radius: 10;" />
+            <Label text="-" />
+            <Label fx:id="EndHourLabel" text="9:00pm" />
+            <Pane fx:id="ESkyPane" layoutX="98.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0" style="-fx-background-color: #252A64; -fx-background-radius: 10;" />
+         </children>
+      </HBox>
+      <HBox layoutX="5.0" layoutY="65.0" prefHeight="115.0" prefWidth="200.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="20.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <Label text="Days:" textFill="#aeaeae" />
+                        <Label fx:id="DaysLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-color: #CEE741; -fx-background-radius: 10;" text="4" textFill="WHITE" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="20.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <Label text="Gaps:" textFill="#aeaeae" />
+                        <Label fx:id="GapsLabel" alignment="CENTER" prefHeight="15.0" prefWidth="15.0" text="4" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="30.0" prefHeight="20.0" prefWidth="100.0" spacing="5.0">
+                     <children>
+                        <Label text="Labels:" textFill="#aeaeae" />
+                        <Label fx:id="LabelLabel" alignment="CENTER" prefHeight="15.0" prefWidth="15.0" text="4" />
+                     </children>
+                  </HBox>
+                  <Label fx:id="ScoreLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="50.0" style="-fx-background-color: #CEE741; -fx-background-radius: 10;" text="3140" textFill="WHITE" />
+               </children>
+               <HBox.margin>
+                  <Insets bottom="10.0" />
+               </HBox.margin>
+            </VBox>
+            <VBox fx:id="LabelVBox" layoutX="110.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0" />
+         </children>
+      </HBox>
+   </children>
+</Pane>
